@@ -22,6 +22,7 @@ with lib;
 
         packages = [
           "com.stremio.Stremio"
+          "us.materialio.Materialious"
         ];
 
         remotes = [
@@ -74,4 +75,3 @@ with lib;
     };
   };
 }
-
