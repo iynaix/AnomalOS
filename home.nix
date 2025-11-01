@@ -77,8 +77,7 @@ in
     TERMINAL = "kitty";
     VISUAL = "zed";
     XDG_TERMINAL_EDITOR = "kitty";
-    # Ensure ~/.local/share is in XDG_DATA_DIRS so rofi finds our custom desktop files
-    XDG_DATA_DIRS = "$HOME/.local/share:$XDG_DATA_DIRS";
+    XDG_DATA_DIRS = "$HOME/.local/share/flatpak/exports/share:$HOME/.local/share:$XDG_DATA_DIRS";
   };
 
   # Thunar installed for GTK portal FileChooser dependency (yazi doesn't provide one)
