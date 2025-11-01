@@ -21,7 +21,10 @@ with lib;
       config = {
         common.default = "gtk";
         hyprland = {
-          default = [ "gtk" "hyprland" ];
+          default = [
+            "gtk"
+            "hyprland"
+          ];
           "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
           "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
           "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
@@ -39,7 +42,7 @@ with lib;
       before = [ "xdg-desktop-portal.service" ];
     };
 
-    security.pam.services.hyprlock = {};
+    security.pam.services.hyprlock = { };
 
     services = {
       hypridle.enable = true;
@@ -351,16 +354,16 @@ with lib;
           };
           decoration = {
             rounding = 10;
-            active_opacity = 0.92;
-            inactive_opacity = 0.87;
+            active_opacity = 1;
+            inactive_opacity = 0.95;
             shadow = {
-              enabled = false;
+              enabled = true;
               range = 8;
               render_power = 4;
             };
             blur = {
-              enabled = false;
-              size = 8;
+              enabled = true;
+              size = 3;
               passes = 1;
               new_optimizations = true;
               ignore_opacity = false;
