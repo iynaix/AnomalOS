@@ -48,6 +48,7 @@ with lib;
       desktop = mkEnableOption "Desktop environment (Hyprland)";
       development = mkEnableOption "Development tools and languages";
       security = mkEnableOption "Enhanced security features";
+      flatpak = mkEnableOption "Declarative Flatpak package management";
     };
 
     hardware = {

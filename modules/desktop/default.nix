@@ -13,6 +13,7 @@ with lib;
     ./stylix.nix
     ./media.nix
     ./rofi.nix
+    ./flatpak.nix
   ];
 
   config = mkIf config.mySystem.features.desktop {
