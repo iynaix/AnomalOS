@@ -19,6 +19,9 @@ in
 
   programs.fish = {
     enable = true;
+    shellAliases = {
+      cbj = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#google-chrome -- --app=\"https://fanduelsportsnetwork.com/teams/nhl-blue-jackets\"";
+    };
     interactiveShellInit = ''
       set -g fish_color_param b392f0  # base05 light purple
       set -g fish_color_autosuggestion 2f143f  # base03 medium purple
@@ -159,6 +162,10 @@ in
       "audio/webm" = [ "vlc.desktop" ];
       "audio/x-opus+ogg" = [ "vlc.desktop" ];
       "audio/x-vorbis+ogg" = [ "vlc.desktop" ];
+      "audio/x-mpegurl" = [ "vlc.desktop" ];
+      "audio/mpegurl" = [ "vlc.desktop" ];
+      "application/vnd.apple.mpegurl" = [ "vlc.desktop" ];
+      "application/x-mpegurl" = [ "vlc.desktop" ];
 
       # Documents
       "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];

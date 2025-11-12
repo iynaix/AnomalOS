@@ -8,6 +8,7 @@ with lib;
     ./editors.nix
     ./languages.nix
     ./ai-assistant.nix
+    ./media.nix
   ];
 
   config = mkIf config.mySystem.features.development {

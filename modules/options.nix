@@ -49,6 +49,7 @@ with lib;
       development = mkEnableOption "Development tools and languages";
       security = mkEnableOption "Enhanced security features";
       flatpak = mkEnableOption "Declarative Flatpak package management";
+      kdeconnect = mkEnableOption "KDE Connect for device integration and file transfer";
     };
 
     hardware = {

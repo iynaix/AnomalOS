@@ -14,6 +14,7 @@ with lib;
     ./media.nix
     ./rofi.nix
     ./flatpak.nix
+    ./kdeconnect.nix
   ];
 
   config = mkIf config.mySystem.features.desktop {
