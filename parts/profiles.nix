@@ -24,7 +24,6 @@
         desktop = lib.mkForce false;
         gaming = lib.mkForce false;
         claudeCode = lib.mkForce false;
-        aiAssistant = lib.mkForce false;
       };
       mySystem.hardware = {
         bluetooth = lib.mkForce false;
@@ -35,7 +34,6 @@
     workstation = {
       mySystem.features = {
         gaming = lib.mkForce false;
-        aiAssistant = lib.mkForce false;
       };
       mySystem.hardware = {
         steam = lib.mkForce false;

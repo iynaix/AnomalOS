@@ -43,8 +43,6 @@ with lib;
             inline_blame.enabled = false;
           };
 
-          features.edit_prediction_provider = "copilot";
-
           lsp.nixd.settings = {
             nixpkgs.expr = "import (builtins.getFlake \"/home/weegs/dotfiles\").inputs.nixpkgs { }";
             formatting.command = ["alejandra" "--quiet"];

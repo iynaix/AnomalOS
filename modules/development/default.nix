@@ -7,7 +7,6 @@ with lib;
     ./claude-code.nix
     ./editors.nix
     ./languages.nix
-    ./ai-assistant.nix
     ./media.nix
   ];
 

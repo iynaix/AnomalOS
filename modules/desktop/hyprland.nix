@@ -471,6 +471,9 @@ with lib;
             # Generic popup patterns (catch-all)
             "float, title:^(.*[Dd]ialog.*)$"
             "float, title:^(.*[Pp]opup.*)$"
+
+            # Blue Protocol Star Resonance - force tiled (not floating)
+            "tile, initialClass:^(steam_app_3681810)$"
           ];
         };
       };

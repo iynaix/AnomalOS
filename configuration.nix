@@ -30,7 +30,6 @@
       claudeCode = true;
       development = true;
       gaming = true;
-      aiAssistant = true;
       flatpak = true;
       media = true;
       kdeconnect = true;
