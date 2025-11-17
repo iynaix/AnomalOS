@@ -472,11 +472,13 @@ with lib;
             "float, title:^(.*[Dd]ialog.*)$"
             "float, title:^(.*[Pp]opup.*)$"
 
-            # Blue Protocol Star Resonance - force tiled (not floating)
-            "tile, initialClass:^(steam_app_3681810)$"
-
-            # Make ALL Steam games fully opaque (override global transparency)
-            "opacity 1.0 override 1.0 override 1.0 override, class:^(steam_app_.*)$"
+            # Steam games configuration - use tags for reliable rule application
+            "tag +games, class:^(steam_app_.*)"
+            "bordersize 0, tag:games*"
+            "rounding 0, tag:games*"
+            "workspace special:scratchpad, tag:games*"
+            "fullscreen, tag:games*"
+            "opacity 1.0 override 1.0 override 1.0 override, tag:games*"
           ];
         };
       };
