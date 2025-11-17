@@ -354,8 +354,8 @@ with lib;
           };
           decoration = {
             rounding = 10;
-            active_opacity = 1;
-            inactive_opacity = 0.95;
+            active_opacity = 0.90;
+            inactive_opacity = 0.80;
             shadow = {
               enabled = true;
               range = 8;
@@ -367,7 +367,7 @@ with lib;
               passes = 1;
               new_optimizations = true;
               ignore_opacity = false;
-              vibrancy = 0.25;
+              vibrancy = 0.35;
             };
           };
           input = {
@@ -474,6 +474,9 @@ with lib;
 
             # Blue Protocol Star Resonance - force tiled (not floating)
             "tile, initialClass:^(steam_app_3681810)$"
+
+            # Make ALL Steam games fully opaque (override global transparency)
+            "opacity 1.0 override 1.0 override 1.0 override, class:^(steam_app_.*)$"
           ];
         };
       };
