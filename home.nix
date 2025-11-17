@@ -41,11 +41,12 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
-    inputs.agenix.packages.${pkgs.system}.default
-    inputs.nh.packages.${pkgs.system}.default
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.nh.packages.${pkgs.stdenv.hostPlatform.system}.default
     alejandra
     alarm-clock-applet
     cliphist
+    ed-odyssey-materials-helper
     fastfetch
     fzf
     gh
@@ -55,6 +56,7 @@ in
     hyprshot
     jan
     jq
+    min-ed-launcher
     nodejs
     pamixer
     python3
@@ -208,4 +210,14 @@ in
   home.file."claude-projects/.keep" = lib.mkIf osConfig.mySystem.features.claudeCode {
     text = "";
   };
+
+  home.file.".local/share/min-ed-launcher/MinEdLauncher" = {
+    source = "${pkgs.min-ed-launcher}/bin/MinEdLauncher";
+  };
+
+  home.activation.minEdLauncherSymlink = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD mkdir -p "/mnt/kingston-1tb/steamapps/common/Elite Dangerous"
+    $DRY_RUN_CMD ln -sf "${config.home.homeDirectory}/.local/share/min-ed-launcher/MinEdLauncher" \
+      "/mnt/kingston-1tb/steamapps/common/Elite Dangerous/MinEdLauncher"
+  '';
 }

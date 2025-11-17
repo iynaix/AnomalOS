@@ -44,7 +44,7 @@
     curl
     git
     wget
-    inputs.helium.defaultPackage.${pkgs.system}
+    inputs.helium.defaultPackage.${pkgs.stdenv.hostPlatform.system}
 
     (pkgs.writeScriptBin "rig-up" ''
       #!/usr/bin/env bash
