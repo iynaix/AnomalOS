@@ -47,6 +47,7 @@ in
     alarm-clock-applet
     cliphist
     ed-odyssey-materials-helper
+    edmarketconnector
     fastfetch
     fzf
     gh
