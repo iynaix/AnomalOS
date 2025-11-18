@@ -40,6 +40,10 @@
       bluetooth = true;
       steam = true;
     };
+
+    security = {
+      dnscrypt = true;
+    };
   };
 
   home-manager = {

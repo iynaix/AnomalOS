@@ -52,6 +52,10 @@ with lib;
       kdeconnect = mkEnableOption "KDE Connect for device integration and file transfer";
     };
 
+    security = {
+      dnscrypt = mkEnableOption "DNSCrypt-Proxy with encrypted DNS (Quad9 + Cloudflare)";
+    };
+
     hardware = {
       amd = mkEnableOption "AMD GPU support";
       nvidia = mkEnableOption "NVIDIA GPU support";

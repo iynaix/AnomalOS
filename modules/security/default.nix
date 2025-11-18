@@ -8,6 +8,7 @@ with lib;
     ./firewall.nix
     ./hardening.nix
     ./suricata.nix
+    ./dnscrypt-proxy.nix
   ];
 
   config = mkIf config.mySystem.features.security {
