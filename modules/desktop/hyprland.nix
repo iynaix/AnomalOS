@@ -479,6 +479,8 @@ with lib;
             "workspace special:scratchpad, tag:games*"
             "fullscreen, tag:games*"
             "opacity 1.0 override 1.0 override 1.0 override, tag:games*"
+
+            "opacity 1.0 override 1.0 override 1.0 override, class:^(com\.stremio\.stremio)$"
           ];
         };
       };

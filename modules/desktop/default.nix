@@ -59,12 +59,12 @@ with lib;
     };
 
     programs = {
-      file-roller.enable = true;
       udevil.enable = true;
     };
 
     users.users.${config.mySystem.user.name}.packages = with pkgs; [
       # Applications
+      file-roller
       gemini-cli
       kdePackages.okular
       pavucontrol
