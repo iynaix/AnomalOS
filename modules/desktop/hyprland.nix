@@ -481,6 +481,7 @@ with lib;
             "opacity 1.0 override 1.0 override 1.0 override, tag:games*"
 
             "opacity 1.0 override 1.0 override 1.0 override, class:^(com\.stremio\.stremio)$"
+            "opacity 1.0 override 1.0 override 1.0 override, class:^(helium)$"
           ];
         };
       };
