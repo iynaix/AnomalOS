@@ -13,7 +13,7 @@ in
       resolved.enable = false;
       unbound.enable = false;
 
-      dnscrypt-proxy2 = {
+      dnscrypt-proxy = {
         enable = true;
         settings = {
           listen_addresses = [ "127.0.0.1:53" "[::1]:53" ];
