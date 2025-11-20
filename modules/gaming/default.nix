@@ -7,6 +7,7 @@
 with lib; {
   imports = [
     ./steam.nix
+    ./aagl.nix
   ];
 
   config = mkIf config.mySystem.features.gaming {
