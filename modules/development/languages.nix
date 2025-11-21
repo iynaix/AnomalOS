@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -29,6 +34,7 @@ in
       gh
       jq
       tldr
+      opencode
 
       # Language servers and formatters
       alejandra
