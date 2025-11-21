@@ -363,7 +363,7 @@ with lib;
             };
             blur = {
               enabled = true;
-              size = 3;
+              size = 2;
               passes = 1;
               new_optimizations = true;
               ignore_opacity = false;
@@ -372,7 +372,7 @@ with lib;
           };
           input = {
             kb_layout = "us";
-            follow_mouse = 1;
+            follow_mouse = 0;
             sensitivity = 0;
           };
           device = {
