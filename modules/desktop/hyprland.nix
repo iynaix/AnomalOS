@@ -510,6 +510,7 @@ with lib;
 
             "opacity 1.0 override 1.0 override 1.0 override, class:^(com\.stremio\.stremio)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(helium)$"
+            "opacity 1.0 override 1.0 override 1.0 override, class:^(starrail\.exe)$"
           ];
         };
       };
