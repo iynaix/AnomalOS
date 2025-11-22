@@ -55,7 +55,6 @@ in
     grim
     hyprls
     hyprshot
-    jan
     jq
     min-ed-launcher
     nodejs
