@@ -2,18 +2,18 @@
 
 This guide provides detailed step-by-step instructions for installing AnomalOS configuration on your NixOS system.
 
-> **⚠️ Important**: This configuration is designed for my personal hardware. While customization is supported, **no guarantees are made that it will work on your system without modifications**. Use at your own risk.
+> **Important**: This configuration is designed for my personal hardware. While customization is supported, no guarantees are made that it will work on your system without modifications. Use at your own risk.
 
 ## Prerequisites
 
 Before starting the installation, ensure you have:
 
-- **Fresh NixOS installation** on an x86_64 machine
-- **Internet connection** for downloading packages
-- **Root or sudo access** to the system
-- **Basic familiarity** with command line operations
-- **YubiKey device** (optional, only for Rig/Guard configurations)
-- **Sufficient storage**: At least 50GB free (100GB+ recommended)
+- Fresh NixOS installation on an x86_64 machine
+- Internet connection for downloading packages
+- Root or sudo access to the system
+- Basic familiarity with command line operations
+- YubiKey device (required for Rig configuration)
+- Sufficient storage: At least 50GB free (100GB+ recommended)
 
 ## Step-by-Step Installation
 
@@ -74,18 +74,7 @@ cat hardware-configuration.nix
 
 **Note**: Refer to `hardware-configuration.nix.template` for explanations of common hardware scenarios.
 
-### Step 4: Choose Your Configuration
-
-Select one of the four available configurations based on your needs:
-
-| Configuration | Use Case | Features |
-|---------------|----------|----------|
-| **Rig** | Full-featured development machine | YubiKey + Claude Code + Gaming + Desktop + AI |
-| **Hack** | Development without hardware security | Claude Code + Gaming + Desktop + AI (no YubiKey) |
-| **Guard** | Security-focused workstation | YubiKey + Gaming + Desktop + AI (no Claude Code) |
-| **Stub** | Minimal desktop system | Gaming + Desktop + AI only |
-
-### Step 5: Customize Configuration (Optional but Recommended)
+### Step 4: Customize Configuration (Optional but Recommended)
 
 Before building, customize `configuration.nix` with your preferences:
 
@@ -116,7 +105,7 @@ mySystem = {
 };
 ```
 
-### Step 6: Create Secrets (REQUIRED)
+### Step 5: Create Secrets (REQUIRED)
 
 **IMPORTANT**: Create encrypted secrets before building:
 
@@ -139,13 +128,13 @@ The encrypted secret is now stored in `secrets/restic-password.age` and is safe 
 
 **Note**: See [docs/SECRETS.md](SECRETS.md) for complete secret management guide.
 
-### Step 7: Test Configuration
+### Step 6: Test Configuration
 
 **ALWAYS test before switching** to avoid breaking your system:
 
 ```bash
-# Test your chosen configuration (replace 'Rig' with your choice)
-sudo nixos-rebuild test --flake .#Rig
+# Test the Rig configuration
+nh os test .#nixosConfigurations.Rig
 ```
 
 **What to expect during test:**
@@ -158,16 +147,15 @@ sudo nixos-rebuild test --flake .#Rig
 - Read error messages carefully
 - Verify `hardware-configuration.nix` was generated correctly
 - Check that you have internet connectivity
-- Try a simpler configuration (e.g., Stub) first
 - Check the [Troubleshooting Guide](TROUBLESHOOTING.md)
 
-### Step 8: Apply Configuration
+### Step 7: Apply Configuration
 
 **Only proceed if Step 6 completed successfully:**
 
 ```bash
-# Apply the configuration (replace 'Rig' with your choice)
-sudo nixos-rebuild switch --flake .#Rig
+# Apply the configuration
+nh os switch .#nixosConfigurations.Rig
 ```
 
 **What happens during switch:**
@@ -176,18 +164,18 @@ sudo nixos-rebuild switch --flake .#Rig
 - Boot loader is updated
 - User environment is configured
 
-### Step 9: Reboot
+### Step 8: Reboot
 
 ```bash
 # Reboot to ensure everything loads correctly
 sudo reboot
 ```
 
-### Step 10: Post-Installation Setup
+### Step 9: Post-Installation Setup
 
 After rebooting, perform configuration-specific setup:
 
-#### For YubiKey Configurations (Rig/Guard)
+#### YubiKey Configuration
 
 Register your YubiKey for authentication:
 
@@ -207,7 +195,7 @@ sudo echo "YubiKey working!"  # Should require YubiKey touch
 - Auto-login is disabled when YubiKey is unplugged
 - Check logs: `sudo journalctl -u yubikey-autologin-init`
 
-#### For Claude Code Configurations (Rig/Hack)
+#### Claude Code Setup
 
 Test Claude Code is available:
 
@@ -222,7 +210,7 @@ cc status
 claude
 ```
 
-#### For AI Assistant Configurations (All)
+#### AI Assistant Setup
 
 Test Ollama and Open WebUI:
 
@@ -259,9 +247,9 @@ After installation, verify these items:
 - [ ] Audio is functional (`systemctl --user status pipewire`)
 - [ ] Keyboard and mouse work correctly
 - [ ] Display resolution is correct
-- [ ] If using YubiKey: Authentication requires YubiKey touch
-- [ ] If using Claude Code: `cc` command is available
-- [ ] If using AI Assistant: `klank` and `ai` commands work
+- [ ] YubiKey authentication requires YubiKey touch
+- [ ] `cc` command is available
+- [ ] `klank` and `ai` commands work
 
 ## What Happens During Installation
 
@@ -282,7 +270,7 @@ Understanding the installation process:
 # Clean and retry
 sudo nix-collect-garbage -d
 nix flake update
-sudo nixos-rebuild test --flake .#Rig
+nh os test .#nixosConfigurations.Rig
 ```
 
 ### Hardware Configuration Issues
@@ -323,28 +311,6 @@ df -h
 sudo nix-collect-garbage -d
 ```
 
-## Switching Between Configurations
-
-You can switch between the four configurations at any time:
-
-```bash
-# Test a different configuration first
-sudo nixos-rebuild test --flake .#Hack
-
-# If test succeeds, switch to it
-sudo nixos-rebuild switch --flake .#Hack
-```
-
-Or use the convenient aliases:
-
-```bash
-# Using interactive update scripts
-hack-up     # Updates, tests, and prompts to switch to Hack
-guard-up    # Updates, tests, and prompts to switch to Guard
-stub-up     # Updates, tests, and prompts to switch to Stub
-rig-up      # Updates, tests, and prompts to switch to Rig
-```
-
 ## Recovery
 
 If the system becomes unbootable:
@@ -357,7 +323,7 @@ If the system becomes unbootable:
    ```
 3. **Rebuild from mounted system**:
    ```bash
-   sudo nixos-rebuild switch --flake /mnt/home/your-username/dotfiles#Stub
+   nh os switch /mnt/home/your-username/dotfiles#nixosConfigurations.Rig
    ```
 4. **Reboot**
 

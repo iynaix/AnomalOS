@@ -11,11 +11,11 @@ This configuration uses [agenix](https://github.com/ryantm/agenix) to securely m
 - Only authorized SSH keys can decrypt secrets
 
 **Benefits:**
-- ✅ Secrets encrypted in git
-- ✅ Per-user and per-host access control
-- ✅ Uses existing SSH keys (including YubiKey-backed keys)
-- ✅ Automatic decryption at boot
-- ✅ Secrets stored in memory only (/run is tmpfs)
+- Secrets encrypted in git
+- Per-user and per-host access control
+- Uses existing SSH keys (including YubiKey-backed keys)
+- Automatic decryption at boot
+- Secrets stored in memory only (/run is tmpfs)
 
 ## Quick Start
 
@@ -246,10 +246,10 @@ nix run github:ryantm/agenix -- -d secrets/restic-password.age
 ### 3. Backup Secrets Responsibly
 
 ```bash
-# Encrypted secrets in git - safe ✓
+# Encrypted secrets in git - safe
 git add secrets/*.age
 
-# Decrypted secrets - NEVER commit ✗
+# Decrypted secrets - NEVER commit
 # Already in .gitignore:
 # secrets/*.txt
 # secrets/*.key
@@ -387,10 +387,10 @@ git push
 **What NOT to do:**
 
 ```bash
-# ❌ DO NOT modify .gitignore to allow *.age files
+# DO NOT modify .gitignore to allow *.age files
 # This defeats the defense in depth approach
 
-# ❌ DO NOT use git add . or git add secrets/
+# DO NOT use git add . or git add secrets/
 # These won't work due to .gitignore and don't show clear intent
 ```
 
@@ -447,18 +447,18 @@ home.file.".config/app/config".text = ''
 
 ### What's Protected
 
-- ✅ Secrets encrypted at rest (in git)
-- ✅ Secrets encrypted in transit (SSH)
-- ✅ Secrets only in memory at runtime (/run is tmpfs)
-- ✅ Automatic cleanup on reboot
-- ✅ SSH key-based access control
+- Secrets encrypted at rest (in git)
+- Secrets encrypted in transit (SSH)
+- Secrets only in memory at runtime (/run is tmpfs)
+- Automatic cleanup on reboot
+- SSH key-based access control
 
 ### What's Not Protected
 
-- ❌ Secrets in memory (while system running)
-- ❌ Processes with root access can read secrets
-- ❌ Physical access to running system
-- ❌ Compromised SSH private keys
+- Secrets in memory (while system running)
+- Processes with root access can read secrets
+- Physical access to running system
+- Compromised SSH private keys
 
 ### Defense in Depth
 

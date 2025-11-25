@@ -2,11 +2,11 @@
 
 ![AnomalOS](modules/desktop/anomalos.jpg)
 
-A comprehensive **modular** NixOS configuration using Nix flakes for a modern desktop system with Hyprland window manager, featuring automated security hardening, theming, AI development tools, and **optional YubiKey and Claude Code support**.
+A comprehensive modular NixOS configuration using Nix flakes for a modern desktop system with Hyprland window manager, featuring automated security hardening, theming, AI development tools, and optional YubiKey and Claude Code support.
 
-> **⚠️ Important Notice**: This configuration is provided **as-is** for personal use and educational purposes. It is specifically designed for my personal hardware and workflow. While efforts have been made to enable customization, **there are no guarantees this will work on your system without modifications**. You are free to adopt the entire configuration or pick and choose components that suit your needs. This is entirely **FOSS (Free and Open Source Software)**.
+> **Important Notice**: This configuration is provided as-is for personal use and educational purposes. It is specifically designed for my personal hardware and workflow. While efforts have been made to enable customization, there are no guarantees this will work on your system without modifications. You are free to adopt the entire configuration or pick and choose components that suit your needs. This is entirely FOSS (Free and Open Source Software).
 
-## 📚 Documentation
+## Documentation
 
 For comprehensive documentation, see the [docs/](docs/) directory:
 - [Installation Guide](docs/INSTALLATION.md)
@@ -16,9 +16,9 @@ For comprehensive documentation, see the [docs/](docs/) directory:
 - [Secret Management](docs/SECRETS.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 
-## 🖥️ System Overview
+## System Overview
 
-This configuration targets **x86_64 desktop systems**, providing:
+This configuration targets x86_64 desktop systems, providing:
 
 - **OS**: NixOS (unstable channel) with CachyOS kernel
 - **Window Manager**: Hyprland (basic configuration, customizable)
@@ -29,7 +29,7 @@ This configuration targets **x86_64 desktop systems**, providing:
 - **Security**: Hardened with optional YubiKey U2F for login, sudo, and polkit
 - **AI Tools**: Optional Ollama + Open WebUI for local AI assistance
 
-## 🎯 System Configuration
+## System Configuration
 
 This flake provides the **Rig** configuration - a complete, optimized NixOS system with:
 
@@ -37,12 +37,12 @@ This flake provides the **Rig** configuration - a complete, optimized NixOS syst
 - **Claude Code**: Enhanced AI-assisted development
 - **Full Feature Set**: All gaming, development, and desktop features enabled
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
-- **Fresh NixOS installation** (any x86_64 machine with internet connection)
-- **Root or sudo access**
-- **YubiKey** (required for hardware authentication)
+- Fresh NixOS installation (any x86_64 machine with internet connection)
+- Root or sudo access
+- YubiKey (required for hardware authentication)
 
 ### Installation
 
@@ -64,9 +64,9 @@ nh os switch .#nixosConfigurations.Rig
 sudo reboot
 ```
 
-**📖 For detailed installation instructions, see [docs/INSTALLATION.md](docs/INSTALLATION.md)**
+For detailed installation instructions, see [docs/INSTALLATION.md](docs/INSTALLATION.md)
 
-## 🔧 System Management
+## System Management
 
 Quick rebuild commands are available as shell aliases:
 
@@ -81,31 +81,31 @@ nrs-rig        # Switch to Rig configuration
 rig-up         # Update flake + test Rig + prompt to switch
 ```
 
-## 🎨 Key Features
+## Key Features
 
-### 🔒 Security
+### Security
 - YubiKey U2F authentication (optional)
-- **Agenix** for encrypted secret management
+- Agenix for encrypted secret management
 - Suricata IDS for network monitoring
 - Hardened firewall with nftables
 - Kernel hardening and SSH hardening
 - Secure PAM configuration
 
-### 🎨 Desktop Environment
-- **Hyprland** compositor
-- **Waybar** status bar
-- **Stylix** theming with Purple Colony color scheme
-- **SDDM** display manager with theme integration
-- **Yazi** terminal file manager with VSCode-style keybindings
+### Desktop Environment
+- Hyprland compositor
+- Waybar status bar
+- Stylix theming with Purple Colony color scheme
+- SDDM display manager with theme integration
+- Yazi terminal file manager with VSCode-style keybindings
 
-### 🤖 AI Development Tools
-- **Claude Code** with enhanced project management (`cc` command) - optional
-- **Ollama + Open WebUI** for local AI assistance - optional
+### AI Development Tools
+- Claude Code with enhanced project management (`cc` command) - optional
+- Ollama + Open WebUI for local AI assistance - optional
   - Commands: `klank`, `klank-cli`, `ai`, `ai-cli`, `ai-web`
   - AMD GPU support (ROCm compute libraries removed to avoid rebuild overhead)
   - Custom NixOS expert model
 
-### 🛠️ Development
+### Development
 - VSCodium with GitHub Copilot support
 - Fish shell with intelligent autocompletions
 - Development toolchains: Node.js, Python, Rust, Nix
@@ -113,21 +113,21 @@ rig-up         # Update flake + test Rig + prompt to switch
 - Git with custom aliases and workflows
 - Kitty GPU-accelerated terminal
 
-### 🎮 Gaming & Media
+### Gaming & Media
 - Steam with Proton and hardware compatibility
 - Lutris, PPSSPP, DeSmuME emulators
 - Pipewire audio system
 - AMD/Nvidia hybrid GPU support
 - Bluetooth stack with bluetui interface
 
-### 📦 Package Management
+### Package Management
 - Nix Flakes for reproducible configuration
 - Home Manager for user-space management
 - Flatpak for sandboxed applications
 - Cachix binary caches
 - Restic automated backups
 
-## 🏗️ Modular Architecture
+## Modular Architecture
 
 The configuration is organized into logical modules:
 
@@ -153,7 +153,7 @@ dotfiles/
 └── assets/                     # Assets (wallpapers, configs)
 ```
 
-## 🔧 Customization
+## Customization
 
 Edit `configuration.nix` to customize:
 
@@ -184,9 +184,9 @@ mySystem = {
 };
 ```
 
-**📖 For detailed customization options, see [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md)**
+For detailed customization options, see [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md)
 
-## 📊 System Requirements
+## System Requirements
 
 **Target Hardware:**
 - AMD/Intel CPU with integrated graphics
@@ -200,7 +200,7 @@ mySystem = {
 - UEFI boot support
 - Internet connection for initial build
 
-## 🤝 Contributing
+## Contributing
 
 This configuration is designed to be easily forkable and customizable:
 
@@ -210,17 +210,13 @@ This configuration is designed to be easily forkable and customizable:
 4. Test thoroughly with `sudo nixos-rebuild test`
 5. Share improvements via pull requests
 
-## 📄 License
+## License
 
-This configuration is **Free and Open Source Software (FOSS)** provided as-is for educational and personal use. Feel free to adapt it for your own systems, use it whole, or take pieces that work for you. No warranties or guarantees are provided.
+This configuration is Free and Open Source Software (FOSS) provided as-is for educational and personal use. Feel free to adapt it for your own systems, use it whole, or take pieces that work for you. No warranties or guarantees are provided.
 
-## 🔗 Resources
+## Resources
 
 - [NixOS Manual](https://nixos.org/manual/nixos/stable/)
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
 - [Hyprland Wiki](https://wiki.hyprland.org/)
 - [Repository Issues](https://github.com/weegs710/AnomalOS/issues)
-
----
-
-**Perfect for both new and experienced NixOS users!** Choose your configuration based on your hardware and preferences, then enjoy a fully-configured modern desktop system with optional advanced features. 🚀
