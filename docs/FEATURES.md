@@ -8,7 +8,6 @@ This guide provides comprehensive documentation of all features and components a
 
 - [Security Features](#security-features)
 - [Desktop Environment](#desktop-environment)
-- [AI Development Tools](#ai-development-tools)
 - [Development Tools](#development-tools)
 - [Gaming & Media](#gaming--media)
 - [Package Management](#package-management)
@@ -120,6 +119,29 @@ sudo ss -tulpn
 
 **Location**: `modules/security/hardening.nix`
 
+### DNSCrypt-Proxy Encrypted DNS
+
+**Available in**: All configurations (when dnscrypt security feature enabled)
+
+**Features:**
+- Encrypted DNS resolver using dnscrypt-proxy
+- Dual upstream servers (Cloudflare, Quad9)
+- DoH/DNSCrypt protocols prevent ISP surveillance
+- Aggressive caching (4096 entries, 40min-24hr TTL)
+- DNSSEC validation required
+- Quad9 threat intelligence for malware blocking
+
+**Configuration:**
+```bash
+# Check service status
+sudo systemctl status dnscrypt-proxy
+
+# View logs
+sudo journalctl -u dnscrypt-proxy
+```
+
+**Location**: `modules/security/dnscrypt-proxy.nix`
+
 ## Desktop Environment
 
 ### Hyprland Compositor
@@ -175,15 +197,15 @@ sudo ss -tulpn
 
 **Features:**
 - Consistent theming across all applications
-- Purple Colony color scheme
+- Anomal-16 color scheme
 - Automatic color generation from wallpaper
 - GTK and Qt theme integration
 - Terminal and editor theming
 
-**Current Theme**: Purple Colony (dark)
+**Current Theme**: Anomal-16 (dark)
 - Base colors: Deep purple backgrounds
 - Accent colors: Pink, cyan, yellow highlights
-- Wallpaper: `AnomalOS.jpeg`
+- Wallpaper: `anomalos.jpg`
 
 **Customization:**
 ```nix
@@ -200,19 +222,16 @@ stylix.image = ./your-image.jpg;
 
 **Location**: `modules/desktop/stylix.nix`
 
-## AI Development Tools
+## Development Tools
 
 ### Claude Code
-
-**Available in**: Rig configuration
 
 **Features:**
 - AI-powered development assistant
 - Enhanced project management via `cc` command
 - Global project navigation and organization
 - Pre-approved commands for autonomous operation
-- MCP server integration (Serena)
-- Specialized subagents (validation, documentation, NixOS config)
+- MCP server integration
 - Custom slash commands
 
 **Commands:**
@@ -224,12 +243,6 @@ cc new [name]   # Create new project
 cc status       # Show system status
 ```
 
-**Slash Commands:**
-- `/primer`: Prime context for codebase understanding
-- `/analyze [component]`: Deep component analysis
-- `/generate [spec]`: Generate Product Requirements Prompt
-- `/execute [prp]`: Execute implementation from PRP
-
 **Global Configuration:**
 - Location: `~/claude-projects/.claude/`
 - Settings: `settings.local.json` (permissions, MCP servers)
@@ -239,65 +252,12 @@ cc status       # Show system status
 - System: `modules/development/claude-code.nix`
 - Enhanced: `modules/claude-code-enhanced/default.nix`
 
-### Ollama + Open WebUI
-
-**Available in**: All configurations (when aiAssistant feature enabled)
-
-**Features:**
-- Local AI model serving (Ollama)
-- Web-based chat interface (Open WebUI)
-- CLI assistant with nix-expert model
-- ROCm support for AMD GPUs
-- Custom NixOS expert model
-
-**Commands:**
-```bash
-klank           # Open Web UI in browser
-klank-cli       # Launch CLI assistant
-ai              # Alias for klank-cli
-ai-cli          # Alias for klank-cli
-ai-web          # Alias for klank
-
-# Model management
-ollama list                # List installed models
-ollama pull [model]        # Download model
-deploy-ai-models          # Deploy custom models
-```
-
-**Services:**
-- `ollama.service` (user): Ollama model server on port 11434
-- `open-webui.service` (user): Web UI on port 8080
-
-**Custom Model:**
-- `nix-expert`: Specialized NixOS configuration assistant
-- Based on configurable base model
-- System prompt focused on NixOS expertise
-
-**Configuration:**
-```bash
-# Check services
-systemctl --user status ollama
-systemctl --user status open-webui
-
-# View logs
-journalctl --user -u ollama
-journalctl --user -u open-webui
-```
-
-**AMD GPU Support:**
-- Mesa drivers with GPU acceleration
-- ROCm compute libraries removed to prevent frequent rebuilds
-- Basic GPU support remains for desktop acceleration
-
-**Location**: `modules/development/ai-assistant.nix`
-
-## Development Tools
-
 ### Editors
 
-**VSCodium**
-- GitHub Copilot support enabled
-- Custom authentication integration
+**Zed**
+- Fast, native editor with GPU acceleration
+- Language server protocol support
+- Integrated terminal and git
 - Extension support
 
 **Configuration**: `modules/development/editors.nix`
@@ -328,15 +288,10 @@ journalctl --user -u open-webui
 
 **Yazi**
 - Modern terminal file manager
-- VSCode-style keybindings (arrow keys, Ctrl+C/V/X, Ctrl+T for tabs)
+- Vim-style keybindings with custom mappings
 - File previews and image display
 - Custom theme integration with Stylix
 - Custom keymap configuration (see `modules/desktop/yazi/keymap.toml`)
-
-**Thunar**
-- GUI file manager fallback
-- Volume management support
-- File archiving with file-roller integration
 
 **Configuration**: `modules/desktop/default.nix` and `modules/desktop/yazi/`
 
@@ -359,7 +314,7 @@ journalctl --user -u open-webui
 - **Java**: JDK 21
 
 **Language Servers:**
-- `nil`: Nix language server
+- `nixd`: Nix language server
 - `hyprls`: Hyprland configuration language server
 
 **Code Formatting:**
@@ -397,6 +352,15 @@ journalctl --user -u open-webui
 
 **Configuration**: `modules/gaming/steam.nix`
 
+### Anime Game Launchers
+
+**aagl-gtk-on-nix**
+- Native Linux launchers for anime games
+- Conditionally enabled via gaming feature flag
+- Binary cache support for fast installation
+
+**Configuration**: `modules/gaming/aagl.nix`
+
 ### Emulators
 
 **PPSSPP**
@@ -409,7 +373,7 @@ journalctl --user -u open-webui
 - Touchscreen support
 - Save states
 
-**Ryubing**
+**Ryujinx**
 - Nintendo Switch emulator
 - Modern yuzu alternative
 
@@ -422,7 +386,10 @@ journalctl --user -u open-webui
 - Proton-GE and Wine-GE version manager
 - Easy compatibility tool updates for Steam
 
-**Note**: RetroArch is temporarily disabled due to upstream build issues
+**RetroArch**
+- Multi-system emulator with libretro cores
+- Automated playlist generation for 16 platforms
+- CRC32 checksums for metadata matching
 
 **Configuration**: `modules/gaming/default.nix`
 
@@ -434,7 +401,7 @@ journalctl --user -u open-webui
 - Hardware mixing support
 
 **Video:**
-- MPV: Minimal video player with hardware acceleration
+- VLC: Full-featured media player with codec support
 
 **Streaming:**
 - OBS Studio: Screen recording and streaming
@@ -445,7 +412,14 @@ journalctl --user -u open-webui
 **File Sharing:**
 - Transmission: BitTorrent client (GTK interface)
 
-**Configuration**: `modules/desktop/media.nix`
+**Music Management:**
+- Beets: Music library manager with MusicBrainz integration
+- Automatic tagging, album art, and file organization
+- YouTube playlist downloader with MP3 conversion (scrapem command)
+
+**Configuration**:
+- Desktop media tools: `modules/desktop/media.nix` (OBS, GIMP, Video2x)
+- Music/playlist tools: `modules/development/media.nix` (Beets, yt-dlp, download-playlist script)
 
 ### Applications
 
@@ -461,7 +435,12 @@ journalctl --user -u open-webui
 - Pavucontrol: PulseAudio/PipeWire volume control
 - Piper: Gaming mouse configuration (Logitech, Razer, etc)
 - Qview: Minimal image viewer
-- Zathura: Lightweight PDF viewer
+- Okular: Full-featured PDF viewer with KDE integration
+
+**Gaming Tools:**
+- Elite Dangerous Market Connector: Trade route planning
+- min-ed-launcher: Minimal CLI launcher for Elite Dangerous
+- ed-odyssey-materials-helper: Materials tracking for Elite Dangerous
 
 **Configuration**: `modules/desktop/default.nix` and `modules/desktop/media.nix`
 
@@ -500,26 +479,32 @@ home-manager generations  # List generations
 ### Flatpak
 
 **Features:**
-- Sandboxed application support
-- Independent application updates
-- Flathub repository access
+- Declarative Flatpak management via nix-flatpak
+- Sandboxed application support with automatic updates
+- Permission overrides for Wayland and GPU acceleration
+- Version pinning and multi-app declaration
 
-**Commands:**
+**Configuration**: Managed declaratively in `modules/desktop/flatpak.nix`
+
+**Manual Commands:**
 ```bash
 flatpak search [app]      # Search for applications
-flatpak install [app]     # Install application
 flatpak list              # List installed apps
 ```
 
 ### Cachix Binary Caches
 
 **Configured caches:**
-- `nix-community`: Community packages
-- `hyprland`: Hyprland compositor and tools
+- `cache.nixos.org`: Official NixOS binary cache
+- `nix-community.cachix.org`: Community packages
+- `hyprland.cachix.org`: Hyprland compositor and tools
+- `ezkea.cachix.org`: Anime game launchers (aagl-gtk-on-nix)
+- `chaotic-nyx.cachix.org`: CachyOS kernel and additional packages
+- `cache.flakehub.com`: FlakeHub binary cache
 
 **Benefit**: Faster builds by using pre-built binaries
 
-**Configuration**: `modules/core/nix.nix`
+**Configuration**: `configuration.nix` (nix.settings.substituters)
 
 ### Restic Backups
 

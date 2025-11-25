@@ -60,19 +60,23 @@ mySystem.features = {
   claudeCode = true;     # Claude Code development assistant
   development = true;    # Development tools and languages
   gaming = true;         # Gaming support (Steam, emulators)
-  aiAssistant = true;    # Ollama + Open WebUI
+  flatpak = true;        # Declarative Flatpak management
+  media = true;          # Media tools and applications
+  kdeconnect = true;     # KDE Connect integration
 };
 ```
 
 **Feature Descriptions:**
 
 - **desktop**: Enables Hyprland compositor, Waybar, SDDM, Stylix theming
-- **security**: Enables firewall, Suricata IDS, kernel hardening, SSH hardening
+- **security**: Enables firewall, Suricata IDS, kernel hardening, SSH hardening, DNSCrypt-Proxy
 - **yubikey**: Enables YubiKey U2F for login, sudo, and polkit
 - **claudeCode**: Installs Claude Code with enhanced project management
 - **development**: Installs editors, language servers, development toolchains
-- **gaming**: Installs Steam, Lutris, emulators, gaming optimizations
-- **aiAssistant**: Installs Ollama, Open WebUI, and NixOS expert model
+- **gaming**: Installs Steam, anime game launchers, emulators, gaming optimizations
+- **flatpak**: Enables declarative Flatpak management via nix-flatpak
+- **media**: Enables media tools, applications, and Beets music manager
+- **kdeconnect**: Enables KDE Connect for device integration
 
 ### Hardware Configuration
 
@@ -89,8 +93,7 @@ mySystem.hardware = {
 
 **Hardware Options:**
 
-- **amd**: Enables AMD GPU drivers, ROCm for AI workloads, GPU acceleration
-- **nvidia**: Enables proprietary NVIDIA drivers and CUDA support
+- **amd**: Enables AMD GPU drivers and Mesa acceleration
 - **bluetooth**: Enables Bluetooth stack with bluetui interface
 - **steam**: Enables Steam with Proton, Gamescope, hardware compatibility
 
@@ -109,7 +112,9 @@ features = {
   claudeCode = true;     # Claude Code AI development assistant
   development = true;
   gaming = true;
-  aiAssistant = true;
+  flatpak = true;        # Declarative Flatpak management
+  media = true;          # Media tools and applications
+  kdeconnect = true;     # KDE Connect integration
 };
 ```
 
@@ -118,8 +123,8 @@ This configuration provides:
 - YubiKey hardware authentication for login, sudo, and polkit
 - Claude Code for AI-assisted development
 - Complete development toolchain
-- Gaming support with Steam and emulators
-- Local AI assistance with Ollama and Open WebUI
+- Gaming support with Steam, anime game launchers, and emulators
+- Media tools including VLC and Beets music manager
 
 ## Module Configuration
 
@@ -160,7 +165,7 @@ Located in `modules/desktop/`:
 
 - **hyprland.nix**: Hyprland compositor, utilities (grim, slurp, wl-clipboard)
 - **media.nix**: Applications (GIMP, LibreWolf, Anki, Vesktop), media tools
-- **stylix.nix**: Theme configuration (Purple Colony color scheme)
+- **stylix.nix**: Theme configuration (Anomal-16 color scheme)
 
 **Theme Customization:**
 
@@ -170,41 +175,31 @@ stylix.base16Scheme = {
   base00 = "1b002b";  # Background
   base05 = "b392f0";  # Foreground
   # ... more color definitions
-  scheme = "Purple Colony";
+  scheme = "Anomal-16";
 };
 ```
 
 Change wallpaper:
 ```nix
-stylix.image = ./your-wallpaper.jpg;
+stylix.image = ./anomalos.jpg;  # Current wallpaper
 ```
 
 ### Development Modules
 
 Located in `modules/development/`:
 
-- **editors.nix**: VSCodium with GitHub Copilot, tmux, starship
-- **languages.nix**: Node.js, Python3, Rust, language servers (nil, hyprls)
+- **editors.nix**: Zed editor, tmux, starship
+- **languages.nix**: Node.js, Python3, Rust, language servers (nixd, hyprls)
 - **claude-code.nix**: Claude Code installation and integration
-- **ai-assistant.nix**: Ollama + Open WebUI configuration
+- **media.nix**: Media tools, Beets music manager, playlist automation
 
 **Claude Code Configuration:**
 
 Managed by `modules/claude-code-enhanced/default.nix`:
 - Pre-approved commands for autonomous operation
-- MCP server integration (Serena)
+- MCP server integration
 - Global project management via `cc` command
-- Custom slash commands (/primer, /analyze, /generate, /execute)
-
-**AI Assistant Configuration:**
-
-Edit `modules/development/ai-assistant.nix` for Ollama settings:
-```nix
-Environment = [
-  "OLLAMA_HOST=127.0.0.1:11434"
-  "OLLAMA_NUM_CTX=32000"        # Context window size
-];
-```
+- Custom slash commands
 
 ### Gaming Modules
 
@@ -295,23 +290,14 @@ Defined in `modules/core/nix.nix`:
 ### Quick Rebuild Aliases
 
 ```bash
-nrs-rig       # Switch to Rig configuration
-nrt-rig       # Test Rig configuration
-nrs-hack      # Switch to Hack configuration
-nrt-hack      # Test Hack configuration
-nrs-guard     # Switch to Guard configuration
-nrt-guard     # Test Guard configuration
-nrs-stub      # Switch to Stub configuration
-nrt-stub      # Test Stub configuration
+nrs-rig       # Switch to Rig configuration (uses nh)
+nrt-rig       # Test Rig configuration (uses nh)
 ```
 
 ### Update Functions
 
 ```bash
 rig-up        # Update + test + prompt to switch (Rig)
-hack-up       # Update + test + prompt to switch (Hack)
-guard-up      # Update + test + prompt to switch (Guard)
-stub-up       # Update + test + prompt to switch (Stub)
 ```
 
 ### Utility Aliases
@@ -320,14 +306,6 @@ stub-up       # Update + test + prompt to switch (Stub)
 update        # Update flake inputs
 nfa           # Archive flake for sharing
 recycle       # Clean old system generations (7 days)
-```
-
-### AI Assistant Aliases
-
-```bash
-ai            # Launch CLI assistant (klank-cli)
-ai-cli        # Launch CLI assistant
-ai-web        # Launch Web UI in browser (klank)
 ```
 
 ## Advanced Customization
@@ -407,11 +385,15 @@ nix build .#nixosConfigurations.Rig.config.system.build.toplevel
 ### Test Changes Safely
 
 ```bash
-# Always test before switching
-sudo nixos-rebuild test --flake .#Rig
+# Always test before switching (uses nh)
+nh os test .#nixosConfigurations.Rig
 
-# If successful, then switch
-sudo nixos-rebuild switch --flake .#Rig
+# If successful, then switch (uses nh)
+nh os switch .#nixosConfigurations.Rig
+
+# Or use the aliases
+nrt-rig       # Test
+nrs-rig       # Switch
 ```
 
 ## Next Steps

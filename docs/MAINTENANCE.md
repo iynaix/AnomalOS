@@ -28,23 +28,18 @@ Some maintenance tasks run automatically:
 
 ### Quick Update (Recommended)
 
-Use the convenient update scripts that test before switching:
+Use the convenient update script that tests before switching:
 
 ```bash
 # For Rig configuration
 rig-up
-
-# For other configurations
-hack-up
-guard-up
-stub-up
 ```
 
-These scripts:
-1. Update flake inputs
-2. Test the new configuration
-3. Prompt for confirmation before switching
-4. Only switch if test succeeds
+This script:
+1. Updates flake inputs
+2. Tests the new configuration
+3. Prompts for confirmation before switching
+4. Only switches if test succeeds
 
 ### Manual Update Process
 
@@ -58,11 +53,11 @@ nix flake update
 # 2. Review changes (optional)
 nix flake metadata
 
-# 3. Test new configuration
-sudo nixos-rebuild test --flake .#Rig
+# 3. Test new configuration (uses nh)
+nh os test .#nixosConfigurations.Rig
 
-# 4. If test succeeds, switch
-sudo nixos-rebuild switch --flake .#Rig
+# 4. If test succeeds, switch (uses nh)
+nh os switch .#nixosConfigurations.Rig
 ```
 
 ### Selective Updates
@@ -196,8 +191,8 @@ git checkout main
 ### Testing Changes
 
 ```bash
-# Always test before switching
-sudo nixos-rebuild test --flake .#Rig
+# Always test before switching (uses nh)
+nh os test .#nixosConfigurations.Rig
 
 # Test will:
 # - Build new configuration
@@ -220,7 +215,7 @@ sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 sudo nixos-rebuild switch --rollback
 
 # Switch to specific generation
-sudo nixos-rebuild switch --flake .#Rig --profile-name <generation>
+sudo nixos-rebuild switch --rollback
 ```
 
 ## Troubleshooting Common Issues
@@ -234,8 +229,8 @@ sudo nix-collect-garbage -d
 # Update flake inputs
 nix flake update
 
-# Retry build
-sudo nixos-rebuild test --flake .#Rig
+# Retry build (uses nh)
+nh os test .#nixosConfigurations.Rig
 
 # If still failing, check build logs
 nix log /nix/store/<failed-derivation>
@@ -316,7 +311,7 @@ Create `CHANGELOG.md` in your dotfiles:
 
 # Update immediately for security patches
 nix flake lock --update-input nixpkgs
-sudo nixos-rebuild switch --flake .#Rig
+nh os switch .#nixosConfigurations.Rig
 ```
 
 ### YubiKey Maintenance
@@ -445,7 +440,7 @@ sudo restic -r /backup/restic-repo --password-file /run/agenix/restic-password r
 cd ~/dotfiles
 git log --oneline
 git checkout <last-working-commit>
-sudo nixos-rebuild switch --flake .#Rig
+nh os switch .#nixosConfigurations.Rig
 ```
 
 ### Lost SSH Access (YubiKey Issues)
@@ -459,7 +454,7 @@ sudo nixos-rebuild switch --flake .#Rig
 
 ## Best Practices
 
-1. **Always test before switching**: Use `nixos-rebuild test` first
+1. **Always test before switching**: Use `nh os test` first
 2. **Keep git history clean**: Meaningful commit messages
 3. **Regular backups**: Verify backups work monthly
 4. **Update regularly**: Weekly updates prevent massive changes
@@ -488,10 +483,10 @@ rig-up
 recycle
 
 # Test configuration
-sudo nixos-rebuild test --flake .#Rig
+nh os test .#nixosConfigurations.Rig
 
 # Switch configuration
-sudo nixos-rebuild switch --flake .#Rig
+nh os switch .#nixosConfigurations.Rig
 
 # Check system status
 systemctl --failed

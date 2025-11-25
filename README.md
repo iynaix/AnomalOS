@@ -22,12 +22,11 @@ This configuration targets x86_64 desktop systems, providing:
 
 - **OS**: NixOS (unstable channel) with CachyOS kernel
 - **Window Manager**: Hyprland (basic configuration, customizable)
-- **Display Manager**: SDDM with optional YubiKey U2F authentication
+- **Display Manager**: SDDM with YubiKey U2F authentication
 - **Shell**: Fish with Starship prompt
-- **Editor**: VS Codium with GitHub Copilot support
-- **Theme**: Purple Colony dark theme with consistent styling via Stylix
-- **Security**: Hardened with optional YubiKey U2F for login, sudo, and polkit
-- **AI Tools**: Optional Ollama + Open WebUI for local AI assistance
+- **Editor**: Zed with language server support
+- **Theme**: Anomal-16 dark theme with consistent styling via Stylix
+- **Security**: Hardened with YubiKey U2F for login, sudo, and polkit
 
 ## System Configuration
 
@@ -35,7 +34,7 @@ This flake provides the **Rig** configuration - a complete, optimized NixOS syst
 
 - **YubiKey Security**: Hardware authentication for login, sudo, and polkit
 - **Claude Code**: Enhanced AI-assisted development
-- **Full Feature Set**: All gaming, development, and desktop features enabled
+- **Full Feature Set**: All gaming, development, desktop, and media features enabled
 
 ## Quick Start
 
@@ -54,11 +53,14 @@ cd ~/dotfiles
 # Generate hardware configuration for your system
 sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix
 
+# Create encrypted secrets (see docs/SECRETS.md)
+nix run github:ryantm/agenix -- -e secrets/restic-password.age
+
 # Test the configuration (IMPORTANT!)
-nh os test .#nixosConfigurations.Rig
+sudo nixos-rebuild test --flake .#nixosConfigurations.Rig
 
 # If test succeeds, apply the configuration
-nh os switch .#nixosConfigurations.Rig
+sudo nixos-rebuild switch --flake .#nixosConfigurations.Rig
 
 # Reboot
 sudo reboot
@@ -68,14 +70,14 @@ For detailed installation instructions, see [docs/INSTALLATION.md](docs/INSTALLA
 
 ## System Management
 
-Quick rebuild commands are available as shell aliases:
+After initial installation, use `nh` (Nix Helper) for rebuilds:
 
 ```bash
 # Test configuration (safe, temporary)
-nrt-rig        # Test Rig configuration
+nrt-rig        # Test Rig configuration (uses nh)
 
 # Switch configuration (permanent)
-nrs-rig        # Switch to Rig configuration
+nrs-rig        # Switch to Rig configuration (uses nh)
 
 # Interactive update function
 rig-up         # Update flake + test Rig + prompt to switch
@@ -94,38 +96,36 @@ rig-up         # Update flake + test Rig + prompt to switch
 ### Desktop Environment
 - Hyprland compositor
 - Waybar status bar
-- Stylix theming with Purple Colony color scheme
+- Stylix theming with Anomal-16 color scheme
 - SDDM display manager with theme integration
-- Yazi terminal file manager with VSCode-style keybindings
+- Yazi terminal file manager with vim-style keybindings
 
-### AI Development Tools
-- Claude Code with enhanced project management (`cc` command) - optional
-- Ollama + Open WebUI for local AI assistance - optional
-  - Commands: `klank`, `klank-cli`, `ai`, `ai-cli`, `ai-web`
-  - AMD GPU support (ROCm compute libraries removed to avoid rebuild overhead)
-  - Custom NixOS expert model
-
-### Development
-- VSCodium with GitHub Copilot support
+### Development Tools
+- Claude Code with enhanced project management (`cc` command)
+- Zed editor with language server support
 - Fish shell with intelligent autocompletions
 - Development toolchains: Node.js, Python, Rust, Nix
-- Language servers: nil (Nix), hyprls (Hyprland)
+- Language servers: nixd (Nix), hyprls (Hyprland)
 - Git with custom aliases and workflows
 - Kitty GPU-accelerated terminal
 
 ### Gaming & Media
 - Steam with Proton and hardware compatibility
-- Lutris, PPSSPP, DeSmuME emulators
+- aagl-gtk-on-nix launchers for anime games
+- Lutris, PPSSPP, DeSmuME, Ryujinx emulators
+- RetroArch with automated playlist generation
+- VLC media player
+- Beets music library manager
 - Pipewire audio system
-- AMD/Nvidia hybrid GPU support
+- AMD GPU support with Mesa drivers
 - Bluetooth stack with bluetui interface
 
 ### Package Management
 - Nix Flakes for reproducible configuration
 - Home Manager for user-space management
-- Flatpak for sandboxed applications
-- Cachix binary caches
-- Restic automated backups
+- Declarative Flatpak management via nix-flatpak
+- Multiple binary caches (cache.nixos.org, nix-community, hyprland, ezkea, chaotic-nyx, flakehub)
+- Restic automated backups with agenix secret management
 
 ## Modular Architecture
 
@@ -170,16 +170,17 @@ mySystem = {
     security = true;
     development = true;
     gaming = true;
-    yubikey = false;        # Toggle YubiKey support
-    claudeCode = false;     # Toggle Claude Code
-    aiAssistant = false;    # Toggle Ollama + Open WebUI
+    yubikey = true;         # YubiKey hardware authentication
+    claudeCode = true;      # Claude Code AI-assisted development
+    flatpak = true;         # Declarative Flatpak management
+    media = true;           # Media tools and applications
+    kdeconnect = true;      # KDE Connect for device integration
   };
 
   hardware = {
-    amd = true;
-    nvidia = false;
-    bluetooth = true;
-    steam = true;
+    amd = true;             # AMD GPU support
+    bluetooth = true;       # Bluetooth hardware
+    steam = true;           # Steam gaming platform
   };
 };
 ```
@@ -207,7 +208,7 @@ This configuration is designed to be easily forkable and customizable:
 1. Fork the repository
 2. Customize `configuration.nix` for your needs
 3. Modify modules as needed
-4. Test thoroughly with `sudo nixos-rebuild test`
+4. Test thoroughly with `sudo nixos-rebuild test --flake .#nixosConfigurations.Rig`
 5. Share improvements via pull requests
 
 ## License

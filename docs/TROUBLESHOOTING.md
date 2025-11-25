@@ -12,7 +12,6 @@ This guide helps resolve common issues you may encounter with AnomalOS configura
 - [Hardware Issues](#hardware-issues)
 - [Service Issues](#service-issues)
 - [YubiKey Issues](#yubikey-issues)
-- [AI Assistant Issues](#ai-assistant-issues)
 - [Network Issues](#network-issues)
 - [General Debugging](#general-debugging)
 
@@ -28,7 +27,7 @@ This guide helps resolve common issues you may encounter with AnomalOS configura
    ```bash
    sudo nix-collect-garbage -d
    nix flake update
-   sudo nixos-rebuild test --flake .#YourConfig
+   nh os test .#nixosConfigurations.Rig
    ```
 
 2. **Check available disk space:**
@@ -118,7 +117,7 @@ This guide helps resolve common issues you may encounter with AnomalOS configura
 
 3. **Rebuild from installer:**
    ```bash
-   nh os switch /mnt/home/username/dotfiles#nixosConfigurations.Rig
+   sudo nixos-rebuild switch --flake /mnt/home/username/dotfiles#nixosConfigurations.Rig
    ```
 
 ### Boot Hangs
@@ -419,7 +418,7 @@ This guide helps resolve common issues you may encounter with AnomalOS configura
 
 3. **Rebuild and relogin:**
    ```bash
-   sudo nixos-rebuild switch --flake .#YourConfig
+   nh os switch .#nixosConfigurations.Rig
    # Then logout and login
    ```
 
@@ -499,119 +498,6 @@ This guide helps resolve common issues you may encounter with AnomalOS configura
    ```bash
    sudo systemctl restart yubikey-autologin-init
    sudo systemctl restart yubikey-autologin-monitor
-   ```
-
-## AI Assistant Issues
-
-### Ollama Service Not Starting
-
-**Symptom**: Ollama service fails
-
-**Solutions:**
-
-1. **Check service status:**
-   ```bash
-   systemctl --user status ollama
-   ```
-
-2. **View logs:**
-   ```bash
-   journalctl --user -u ollama -f
-   ```
-
-3. **Restart service:**
-   ```bash
-   systemctl --user restart ollama
-   ```
-
-4. **Check port availability:**
-   ```bash
-   ss -tulpn | grep 11434
-   ```
-
-5. **Test manually:**
-   ```bash
-   ollama serve
-   ```
-
-### Open WebUI Not Accessible
-
-**Symptom**: Can't access Web UI at localhost:8080
-
-**Solutions:**
-
-1. **Check service:**
-   ```bash
-   systemctl --user status open-webui
-   ```
-
-2. **Check port:**
-   ```bash
-   ss -tulpn | grep 8080
-   ```
-
-3. **Try accessing:**
-   ```bash
-   curl http://localhost:8080
-   ```
-
-4. **Restart service:**
-   ```bash
-   systemctl --user restart open-webui
-   ```
-
-### Model Not Loading
-
-**Symptom**: AI model fails to load
-
-**Solutions:**
-
-1. **Check available models:**
-   ```bash
-   ollama list
-   ```
-
-2. **Pull model:**
-   ```bash
-   ollama pull llama2
-   ```
-
-3. **Deploy custom models:**
-   ```bash
-   deploy-ai-models
-   ```
-
-4. **Check disk space:**
-   ```bash
-   df -h ~/.ollama
-   ```
-
-5. **Check GPU access (AMD):**
-   ```bash
-   rocm-smi
-   groups | grep -E 'render|video'
-   ```
-
-### AMD GPU Not Used by Ollama
-
-**Symptom**: Ollama not using GPU acceleration
-
-**Solutions:**
-
-1. **Check ROCm:**
-   ```bash
-   rocminfo
-   echo $HSA_OVERRIDE_GFX_VERSION
-   ```
-
-2. **Check service environment:**
-   ```bash
-   systemctl --user show ollama | grep Environment
-   ```
-
-3. **Verify GPU device files:**
-   ```bash
-   ls -la /dev/kfd /dev/dri/render*
    ```
 
 ## Network Issues
@@ -770,7 +656,7 @@ If system is completely broken:
 4. **Fix and rebuild:**
    ```bash
    cd /home/username/dotfiles
-   nh os switch .#nixosConfigurations.Rig
+   sudo nixos-rebuild switch --flake .#nixosConfigurations.Rig
    ```
 
 5. **Reboot:**

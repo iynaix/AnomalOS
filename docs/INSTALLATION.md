@@ -134,7 +134,8 @@ The encrypted secret is now stored in `secrets/restic-password.age` and is safe 
 
 ```bash
 # Test the Rig configuration
-nh os test .#nixosConfigurations.Rig
+# NOTE: Use nixos-rebuild for initial installation (nh not available yet)
+sudo nixos-rebuild test --flake .#nixosConfigurations.Rig
 ```
 
 **What to expect during test:**
@@ -155,7 +156,8 @@ nh os test .#nixosConfigurations.Rig
 
 ```bash
 # Apply the configuration
-nh os switch .#nixosConfigurations.Rig
+# NOTE: Use nixos-rebuild for initial installation (nh not available yet)
+sudo nixos-rebuild switch --flake .#nixosConfigurations.Rig
 ```
 
 **What happens during switch:**
@@ -163,6 +165,7 @@ nh os switch .#nixosConfigurations.Rig
 - Services are started/restarted
 - Boot loader is updated
 - User environment is configured
+- `nh` (Nix Helper) is installed for future rebuilds
 
 ### Step 8: Reboot
 
@@ -210,31 +213,19 @@ cc status
 claude
 ```
 
-#### AI Assistant Setup
+#### System Commands Available
 
-Test Ollama and Open WebUI:
-
-```bash
-# Check services are running
-systemctl --user status ollama
-systemctl --user status open-webui
-
-# Launch CLI assistant
-klank-cli
-# or
-ai
-
-# Launch Web UI in browser
-klank
-# or
-ai-web
-```
-
-Deploy AI models (first time only):
+After installation, use `nh` (Nix Helper) for future rebuilds:
 
 ```bash
-# Deploy the nix-expert model
-deploy-ai-models
+# Test configuration changes
+nrt-rig     # Alias for: nh os test .#nixosConfigurations.Rig
+
+# Apply configuration changes
+nrs-rig     # Alias for: nh os switch .#nixosConfigurations.Rig
+
+# Update and rebuild interactively
+rig-up      # Updates flake, tests, and prompts to switch
 ```
 
 ## Verification Checklist
@@ -249,7 +240,7 @@ After installation, verify these items:
 - [ ] Display resolution is correct
 - [ ] YubiKey authentication requires YubiKey touch
 - [ ] `cc` command is available
-- [ ] `klank` and `ai` commands work
+- [ ] `nh` command is available (`nh --help`)
 
 ## What Happens During Installation
 
@@ -270,6 +261,9 @@ Understanding the installation process:
 # Clean and retry
 sudo nix-collect-garbage -d
 nix flake update
+# Use nixos-rebuild if nh not installed yet
+sudo nixos-rebuild test --flake .#nixosConfigurations.Rig
+# Or use nh if already installed
 nh os test .#nixosConfigurations.Rig
 ```
 
@@ -323,7 +317,7 @@ If the system becomes unbootable:
    ```
 3. **Rebuild from mounted system**:
    ```bash
-   nh os switch /mnt/home/your-username/dotfiles#nixosConfigurations.Rig
+   sudo nixos-rebuild switch --flake /mnt/home/your-username/dotfiles#nixosConfigurations.Rig
    ```
 4. **Reboot**
 

@@ -51,7 +51,9 @@ mySystem.features = {
   claudeCode = true;       # Keep Claude Code
   development = true;      # Keep dev tools
   gaming = false;          # Disable if not gaming
-  aiAssistant = true;      # Keep AI assistant
+  flatpak = true;          # Declarative Flatpak management
+  media = true;            # Media tools and applications
+  kdeconnect = true;       # KDE Connect integration
 };
 ```
 
@@ -61,8 +63,7 @@ Match your hardware:
 
 ```nix
 mySystem.hardware = {
-  amd = true;              # Set false for Intel/NVIDIA only
-  nvidia = false;          # Set true if you have NVIDIA GPU
+  amd = true;              # Set false for Intel-only systems
   bluetooth = true;        # Set false if no Bluetooth
   steam = true;            # Set false if not gaming
 };
@@ -70,8 +71,11 @@ mySystem.hardware = {
 
 **After changes, rebuild:**
 ```bash
-sudo nixos-rebuild test --flake .#YourConfig
-sudo nixos-rebuild switch --flake .#YourConfig
+# Test first (safe)
+nh os test .#nixosConfigurations.Rig
+
+# If test succeeds, apply changes
+nh os switch .#nixosConfigurations.Rig
 ```
 
 ## Theme Customization
@@ -117,7 +121,7 @@ stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yam
 
 ### Changing the Wallpaper
 
-Replace `modules/desktop/AnomalOS.jpeg` with your own image, or:
+Replace `modules/desktop/anomalos.jpg` with your own image, or:
 
 ```nix
 # In modules/desktop/stylix.nix
@@ -342,13 +346,14 @@ nixosConfigurations.MyCustom = nixpkgs.lib.nixosSystem {
         claudeCode = true;
         development = true;
         gaming = false;      # Disable gaming
-        aiAssistant = true;
+        flatpak = true;
+        media = true;
+        kdeconnect = false;
       };
 
       # Override hardware settings
       mySystem.hardware = {
-        amd = false;
-        nvidia = true;       # Use NVIDIA
+        amd = true;
         bluetooth = true;
         steam = false;
       };
@@ -359,7 +364,7 @@ nixosConfigurations.MyCustom = nixpkgs.lib.nixosSystem {
 
 **Build your custom configuration:**
 ```bash
-sudo nixos-rebuild switch --flake .#MyCustom
+nh os switch .#nixosConfigurations.MyCustom
 ```
 
 ### Method 2: Create Separate Configuration File
@@ -395,13 +400,14 @@ Create a new file like `my-config.nix`:
       claudeCode = true;
       development = true;
       gaming = false;
-      aiAssistant = true;
+      flatpak = true;
+      media = true;
+      kdeconnect = true;
     };
 
     hardware = {
       # Your hardware configuration
       amd = true;
-      nvidia = false;
       bluetooth = true;
       steam = false;
     };
@@ -665,11 +671,11 @@ vim configuration.nix
 # 2. Check syntax
 nix flake check
 
-# 3. Test without applying
-sudo nixos-rebuild test --flake .#YourConfig
+# 3. Test without applying (uses nh)
+nh os test .#nixosConfigurations.Rig
 
-# 4. If successful, apply permanently
-sudo nixos-rebuild switch --flake .#YourConfig
+# 4. If successful, apply permanently (uses nh)
+nh os switch .#nixosConfigurations.Rig
 
 # 5. If something breaks, rollback
 sudo nixos-rebuild switch --rollback
@@ -687,7 +693,7 @@ nix store diff-closures /run/current-system ./result
 
 ```bash
 # Verbose output
-sudo nixos-rebuild switch --flake .#YourConfig --show-trace
+nh os switch .#nixosConfigurations.Rig -- --show-trace
 
 # Check logs
 journalctl -xe
