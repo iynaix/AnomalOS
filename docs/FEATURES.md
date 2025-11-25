@@ -18,7 +18,7 @@ This guide provides comprehensive documentation of all features and components a
 
 ### YubiKey U2F Authentication
 
-**Available in**: Rig, Guard configurations
+**Available in**: Rig configuration
 
 **Features:**
 - U2F authentication for login, sudo, and polkit
@@ -204,7 +204,7 @@ stylix.image = ./your-image.jpg;
 
 ### Claude Code
 
-**Available in**: Rig, Hack configurations
+**Available in**: Rig configuration
 
 **Features:**
 - AI-powered development assistant
@@ -588,12 +588,9 @@ bluetoothctl    # CLI management
 
 ### System Update Workflow
 
-**Interactive update functions:**
+**Interactive update function:**
 ```bash
 rig-up          # Update + test + prompt to switch (Rig)
-hack-up         # Update + test + prompt to switch (Hack)
-guard-up        # Update + test + prompt to switch (Guard)
-stub-up         # Update + test + prompt to switch (Stub)
 ```
 
 **Process:**

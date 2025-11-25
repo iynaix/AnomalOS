@@ -94,77 +94,32 @@ mySystem.hardware = {
 - **bluetooth**: Enables Bluetooth stack with bluetui interface
 - **steam**: Enables Steam with Proton, Gamescope, hardware compatibility
 
-## The Four Configurations
+## System Configuration
 
-AnomalOS provides four pre-defined configurations in `flake.nix`:
+AnomalOS provides the **Rig** configuration - a complete, full-featured system:
 
-### 1. Rig (Full Featured)
+### Rig Configuration
 
 ```nix
 # All features enabled
 features = {
   desktop = true;
   security = true;
-  yubikey = true;        # ✅ Enabled
-  claudeCode = true;     # ✅ Enabled
+  yubikey = true;        # YubiKey hardware authentication
+  claudeCode = true;     # Claude Code AI development assistant
   development = true;
   gaming = true;
   aiAssistant = true;
 };
 ```
 
-**Best for:** Primary development workstation with maximum security
-
-### 2. Hack (Developer Focused)
-
-```nix
-# YubiKey disabled via mkForce
-features = {
-  desktop = true;
-  security = true;
-  yubikey = false;       # ❌ Disabled
-  claudeCode = true;     # ✅ Enabled
-  development = true;
-  gaming = true;
-  aiAssistant = true;
-};
-```
-
-**Best for:** Development without hardware authentication requirements
-
-### 3. Guard (Security Focused)
-
-```nix
-# Claude Code disabled via mkForce
-features = {
-  desktop = true;
-  security = true;
-  yubikey = true;        # ✅ Enabled
-  claudeCode = false;    # ❌ Disabled
-  development = true;
-  gaming = true;
-  aiAssistant = true;
-};
-```
-
-**Best for:** Security-conscious users who prefer other development tools
-
-### 4. Stub (Minimal)
-
-```nix
-# YubiKey and Claude Code disabled
-features = {
-  desktop = true;
-  security = true;
-  yubikey = false;       # ❌ Disabled
-  claudeCode = false;    # ❌ Disabled
-  development = true;
-  gaming = true;
-  aiAssistant = true;
-};
-```
-
-**Best for:** Basic desktop system without specialized security or AI tools
+This configuration provides:
+- Full desktop environment with Hyprland
+- YubiKey hardware authentication for login, sudo, and polkit
+- Claude Code for AI-assisted development
+- Complete development toolchain
+- Gaming support with Steam and emulators
+- Local AI assistance with Ollama and Open WebUI
 
 ## Module Configuration
 

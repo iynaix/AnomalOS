@@ -29,23 +29,20 @@ This configuration targets **x86_64 desktop systems**, providing:
 - **Security**: Hardened with optional YubiKey U2F for login, sudo, and polkit
 - **AI Tools**: Optional Ollama + Open WebUI for local AI assistance
 
-## 🎯 Four Simple Configurations
+## 🎯 System Configuration
 
-This flake provides **exactly 4 configurations** to cover all common use cases:
+This flake provides the **Rig** configuration - a complete, optimized NixOS system with:
 
-| Configuration | YubiKey (Security) | Claude Code (AI/Dev) | Final Mapping |
-|---------------|-------------------|---------------------|---------------|
-| `Rig` | ✅ | ✅ | Full system (The complete, optimized machine) |
-| `Guard` | ✅ | ❌ | Security Focus (Direct defense via YubiKey) |
-| `Hack` | ❌ | ✅ | Dev Focus (Raw, untethered programming) |
-| `Stub` | ❌ | ❌ | Minimal system (A basic, essential connection) |
+- **YubiKey Security**: Hardware authentication for login, sudo, and polkit
+- **Claude Code**: Enhanced AI-assisted development
+- **Full Feature Set**: All gaming, development, and desktop features enabled
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - **Fresh NixOS installation** (any x86_64 machine with internet connection)
 - **Root or sudo access**
-- **YubiKey** (optional, only needed for Rig/Guard configurations)
+- **YubiKey** (required for hardware authentication)
 
 ### Installation
 
@@ -57,11 +54,11 @@ cd ~/dotfiles
 # Generate hardware configuration for your system
 sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix
 
-# Test your chosen configuration (IMPORTANT!)
-sudo nixos-rebuild test --flake .#Rig  # or Hack, Guard, Stub
+# Test the configuration (IMPORTANT!)
+nh os test .#nixosConfigurations.Rig
 
 # If test succeeds, apply the configuration
-sudo nixos-rebuild switch --flake .#Rig
+nh os switch .#nixosConfigurations.Rig
 
 # Reboot
 sudo reboot
@@ -74,23 +71,14 @@ sudo reboot
 Quick rebuild commands are available as shell aliases:
 
 ```bash
-# Test configurations (safe, temporary)
+# Test configuration (safe, temporary)
 nrt-rig        # Test Rig configuration
-nrt-hack       # Test Hack configuration
-nrt-guard      # Test Guard configuration
-nrt-stub       # Test Stub configuration
 
-# Switch configurations (permanent)
+# Switch configuration (permanent)
 nrs-rig        # Switch to Rig configuration
-nrs-hack       # Switch to Hack configuration
-nrs-guard      # Switch to Guard configuration
-nrs-stub       # Switch to Stub configuration
 
-# Interactive update functions
+# Interactive update function
 rig-up         # Update flake + test Rig + prompt to switch
-hack-up        # Update flake + test Hack + prompt to switch
-guard-up       # Update flake + test Guard + prompt to switch
-stub-up        # Update flake + test Stub + prompt to switch
 ```
 
 ## 🎨 Key Features
@@ -151,7 +139,7 @@ dotfiles/
 ├── hardware-configuration.nix   # Hardware-specific settings (generated)
 ├── parts/                       # Flake-parts organization
 │   ├── configurations.nix      # NixOS configuration definitions
-│   ├── profiles.nix            # Configuration profiles (Rig, Hack, etc)
+│   ├── profiles.nix            # Configuration profiles
 │   ├── common.nix              # Shared module imports
 │   └── shells.nix              # Development shells
 ├── modules/

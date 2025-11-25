@@ -118,7 +118,7 @@ This guide helps resolve common issues you may encounter with AnomalOS configura
 
 3. **Rebuild from installer:**
    ```bash
-   sudo nixos-rebuild switch --flake /mnt/home/username/dotfiles#Stub
+   nh os switch /mnt/home/username/dotfiles#nixosConfigurations.Rig
    ```
 
 ### Boot Hangs
@@ -770,7 +770,7 @@ If system is completely broken:
 4. **Fix and rebuild:**
    ```bash
    cd /home/username/dotfiles
-   sudo nixos-rebuild switch --flake .#Stub
+   nh os switch .#nixosConfigurations.Rig
    ```
 
 5. **Reboot:**
@@ -793,7 +793,7 @@ If issues persist:
 
 When reporting issues, include:
 
-- Configuration name (Rig/Hack/Guard/Stub)
+- Configuration name (Rig)
 - Hardware details (CPU, GPU, etc.)
 - Relevant logs (`journalctl` output)
 - Steps to reproduce
