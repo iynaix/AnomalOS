@@ -67,6 +67,51 @@ with lib;
     home-manager.users.${config.mySystem.user.name} = {
       stylix.targets.hyprland.enable = true;
 
+      services.swww = {
+        enable = true;
+      };
+
+      home.activation.setWallpaper = ''
+        ${pkgs.swww}/bin/swww img ~/.local/share/wallpapers/HSR.png --resize stretch 2>/dev/null || true
+      '';
+
+      home.file.".local/bin/rotate-wallpaper.sh" = {
+        executable = true;
+        text = ''
+          #!/usr/bin/env bash
+          wallpaper_dir="$HOME/.local/share/wallpapers"
+          image=$(ls "$wallpaper_dir"/* 2>/dev/null | shuf -n 1)
+          [ -n "$image" ] && ${pkgs.swww}/bin/swww img "$image" --resize stretch 2>/dev/null || true
+        '';
+      };
+
+      systemd.user.services.rotate-wallpaper = {
+        Unit = {
+          Description = "Rotate wallpaper";
+          After = [ "graphical-session.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+        Service = {
+          ExecStart = "%h/.local/bin/rotate-wallpaper.sh";
+          Type = "oneshot";
+        };
+      };
+
+      systemd.user.timers.rotate-wallpaper = {
+        Unit = {
+          Description = "Rotate wallpaper every hour";
+          Requires = [ "rotate-wallpaper.service" ];
+        };
+        Timer = {
+          OnBootSec = "60m";
+          OnUnitActiveSec = "60m";
+          Persistent = true;
+        };
+        Install = {
+          WantedBy = [ "timers.target" ];
+        };
+      };
+
       programs.waybar = lib.mkIf config.mySystem.features.desktop {
         enable = true;
         settings = [
@@ -98,7 +143,7 @@ with lib;
               format = "{icon}";
               on-click = "activate";
               format-icons = {
-                "active" = " ";
+                "active" = "<span color='#${config.lib.stylix.colors.base0C}'> </span>";
               };
             };
             "custom/lock" = {
@@ -195,7 +240,7 @@ with lib;
               font-family: "Terminess Nerd Font";
               font-weight: bold;
               font-size: 18px;
-              color: @base07;
+              color: @base04;
           }
 
           #tray menu {
@@ -203,53 +248,102 @@ with lib;
           }
 
           window#waybar {
-              background: transparent;
+              background: alpha(@base00, 0.5);
+              border-radius: 0 0 10px 10px;
           }
 
           #waybar {
-              background: transparent;
+              background: alpha(@base00, 0.5);
               border: none;
+              border-radius: 0 0 10px 10px;
           }
 
-          #workspaces,
-          #window,
-          #tray {
-              background: transparent;
+          #workspaces {
+              background: alpha(@base00, 0.5);
               padding: 4px 6px;
               margin-top: 6px;
+              margin-bottom: 6px;
               margin-left: 6px;
               margin-right: 6px;
-              border-radius: 10px;
+              border-radius: 50px;
           }
 
-          #clock,
-          #custom-power {
-              background: transparent;
+          #tray {
+              background: alpha(@base00, 0.5);
+              padding: 4px 6px;
               margin-top: 6px;
+              margin-bottom: 6px;
+              margin-left: 6px;
               margin-right: 6px;
-              padding: 4px 2px;
-              border-radius: 0 10px 10px 0;
+              border-radius: 50px;
+          }
+
+          #window {
+              background: alpha(@base00, 0.5);
+              padding: 4px 6px;
+              margin-top: 6px;
+              margin-bottom: 6px;
+              margin-left: 6px;
+              margin-right: 6px;
+              border-radius: 50px;
           }
 
           #network,
-          #custom-lock {
-              background: transparent;
+          #bluetooth,
+          #pulseaudio,
+          #clock {
+              background: alpha(@base00, 0.5);
               margin-top: 6px;
-              margin-left: 6px;
+              margin-bottom: 6px;
               padding: 4px 2px;
-              border-radius: 10px 0 0 10px;
           }
 
-          #custom-reboot,
+          #network {
+              margin-left: 6px;
+              border-radius: 50px 0 0 50px;
+          }
+
           #bluetooth,
+          #pulseaudio {
+              border-radius: 0;
+          }
+
+          #clock {
+              margin-right: 6px;
+              border-radius: 0 50px 50px 0;
+          }
+
+          #custom-lock,
+          #custom-reboot,
+          #custom-power {
+              background: alpha(@base00, 0.5);
+              margin-top: 6px;
+              margin-bottom: 6px;
+              padding: 4px 2px;
+          }
+
+          #custom-lock {
+              margin-left: 6px;
+              border-radius: 50px 0 0 50px;
+          }
+
+          #custom-reboot {
+              border-radius: 0;
+          }
+
+          #custom-power {
+              margin-right: 6px;
+              border-radius: 0 50px 50px 0;
+          }
+
           #battery,
-          #pulseaudio,
           #backlight,
           #custom-temperature,
           #memory,
           #cpu {
               background: transparent;
               margin-top: 6px;
+              margin-bottom: 6px;
               padding: 4px 2px;
           }
 
@@ -276,27 +370,42 @@ with lib;
           }
 
           #workspaces button:hover {
-              background: alpha(@base0D, 0.2);
+              background: transparent;
               padding: 2px 8px;
               margin: 0 2px;
               border-radius: 10px;
+              border: none;
+              outline: none;
+              text-shadow: none;
+              box-shadow: none;
           }
 
           #workspaces button.active {
-              background: @base0D;
-              color: @base05;
+              background: transparent;
+              color: @base0C;
               padding: 2px 8px;
               margin: 0 2px;
               border-radius: 10px;
+              border: none;
+              outline: none;
+              text-shadow: none;
+              box-shadow: none;
+          }
+
+          #workspaces button.active > span {
+              color: @base0C;
           }
 
           #workspaces button {
               background: transparent;
               border: none;
-              color: @base05;
+              outline: none;
+              color: @base04;
               padding: 2px 8px;
               margin: 0 2px;
               font-weight: bold;
+              text-shadow: none;
+              box-shadow: none;
           }
 
           #window {
@@ -330,8 +439,8 @@ with lib;
           ];
           general = {
             no_border_on_floating = true;
-            gaps_in = 5;
-            gaps_out = 10;
+            gaps_in = 2;
+            gaps_out = 5;
             border_size = 3;
             resize_on_border = false;
             allow_tearing = false;
@@ -353,7 +462,7 @@ with lib;
             disable_hyprland_logo = lib.mkForce false;
           };
           decoration = {
-            rounding = 10;
+            rounding = 5;
             active_opacity = 0.90;
             inactive_opacity = 0.80;
             shadow = {
