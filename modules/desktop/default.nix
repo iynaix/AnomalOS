@@ -215,14 +215,30 @@ with lib;
       };
       stylix.targets.hyprlock.enable = true;
 
-      programs.kitty = {
+      programs.wezterm = {
         enable = true;
-        font = {
-          name = lib.mkForce "Terminess Nerd Font";
-          size = lib.mkForce 14;
-        };
+        extraConfig = ''
+          config.font = wezterm.font("Terminess Nerd Font")
+          config.font_size = 14.0
+          config.use_fancy_tab_bar = true
+          config.enable_tab_bar = true
+        '';
       };
-      stylix.targets.kitty.enable = true;
+      stylix.targets.wezterm.enable = true;
+
+      xdg.dataFile."applications/org.wezfurlong.wezterm.desktop".text = ''
+        [Desktop Entry]
+        Name=WezTerm
+        Comment=Wez's Terminal Emulator
+        Keywords=shell;prompt;command;commandline;cmd;
+        Icon=org.wezfurlong.wezterm
+        StartupWMClass=org.wezfurlong.wezterm
+        TryExec=wezterm
+        Exec=env WEZTERM_CONFIG_FILE=/home/${config.mySystem.user.name}/.config/wezterm/wezterm.lua wezterm start --cwd .
+        Type=Application
+        Categories=System;TerminalEmulator;Utility;
+        Terminal=false
+      '';
 
       programs.yazi = {
         enable = true;
@@ -286,13 +302,12 @@ with lib;
         };
       };
 
-      # Override Yazi desktop file to launch via kitty
       xdg.dataFile."applications/yazi.desktop".text = ''
         [Desktop Entry]
         Name=Yazi
         Icon=yazi
         Comment=Blazing fast terminal file manager written in Rust, based on async I/O
-        Exec=kitty -e yazi %u
+        Exec=env WEZTERM_CONFIG_FILE=/home/${config.mySystem.user.name}/.config/wezterm/wezterm.lua wezterm -e yazi %u
         Terminal=false
         Type=Application
         MimeType=inode/directory

@@ -79,9 +79,9 @@ in
   home.sessionVariables = {
     EDITOR = "zed";
     NIXOS_OZONE_WL = "1";
-    TERMINAL = "kitty";
+    TERMINAL = "wezterm";
     VISUAL = "zed";
-    XDG_TERMINAL_EDITOR = "kitty";
+    XDG_TERMINAL_EDITOR = "wezterm";
     XDG_DATA_DIRS = "$HOME/.local/share/flatpak/exports/share:$HOME/.local/share:$XDG_DATA_DIRS";
   };
 
@@ -192,8 +192,8 @@ in
       "x-scheme-handler/https" = [ "helium.desktop" ];
 
       # Terminal
-      "application/x-terminal-emulator" = [ "kitty.desktop" ];
-      "x-scheme-handler/terminal" = [ "kitty.desktop" ];
+      "application/x-terminal-emulator" = [ "org.wezfurlong.wezterm.desktop" ];
+      "x-scheme-handler/terminal" = [ "org.wezfurlong.wezterm.desktop" ];
 
       # Torrents - Transmission
       "x-scheme-handler/magnet" = [ "transmission-gtk.desktop" ];
