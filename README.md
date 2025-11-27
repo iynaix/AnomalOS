@@ -107,7 +107,7 @@ rig-up         # Update flake + test Rig + prompt to switch
 - Development toolchains: Node.js, Python, Rust, Nix
 - Language servers: nixd (Nix), hyprls (Hyprland)
 - Git with custom aliases and workflows
-- Kitty GPU-accelerated terminal
+- WezTerm GPU-accelerated terminal emulator
 
 ### Gaming & Media
 - Steam with Proton and hardware compatibility

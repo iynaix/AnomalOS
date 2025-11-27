@@ -264,11 +264,11 @@ cc status       # Show system status
 
 ### Terminal & Shell
 
-**Kitty Terminal**
-- GPU-accelerated rendering
-- Ligature support
-- Image display support
-- Multiplexing capabilities
+**WezTerm Terminal**
+- GPU-accelerated rendering with OpenGL
+- Ligature and font fallback support
+- Image protocol support for previews
+- Tab bar with custom styling via Stylix
 
 **Fish Shell**
 - Intelligent autocompletions

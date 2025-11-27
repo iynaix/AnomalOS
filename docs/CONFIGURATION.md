@@ -229,13 +229,16 @@ programs.starship = {
 ### Terminal Configuration
 
 ```nix
-programs.kitty = {
+programs.wezterm = {
   enable = true;
-  settings = {
-    font_size = 12;
-    # Kitty terminal settings
-  };
+  extraConfig = ''
+    config.font = wezterm.font("Terminess Nerd Font")
+    config.font_size = 14.0
+    config.use_fancy_tab_bar = true
+    config.enable_tab_bar = true
+  '';
 };
+stylix.targets.wezterm.enable = true;
 ```
 
 ### Git Configuration

@@ -176,7 +176,7 @@ wayland.windowManager.hyprland = {
 
     # Keybindings
     bind = [
-      "SUPER, Return, exec, kitty"
+      "SUPER, Return, exec, wezterm"
       "SUPER, Q, killactive"
       "SUPER, F, fullscreen"
       "SUPER, Space, togglefloating"
@@ -185,7 +185,7 @@ wayland.windowManager.hyprland = {
 
     # Window rules
     windowrulev2 = [
-      "float,class:(kitty),title:(floating)"
+      "float,class:(wezterm),title:(floating)"
       "workspace 2,class:(firefox)"
       # Add more rules
     ];
