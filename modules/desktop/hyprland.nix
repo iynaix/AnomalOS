@@ -438,14 +438,14 @@ with lib;
             "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
             "kwalletd6 &"
             "tmux new -d waybar &"
-            "hyprctl keyword master:orientation top"
-            "[workspace name:games] steam"
-            "[workspace name:comms] vesktop"
-            "[workspace name:media silent] vlc"
+            # "hyprctl keyword master:orientation top"
+            # "[workspace name:games] steam"
+            # "[workspace name:comms] vesktop"
+            # "[workspace name:media silent] vlc"
             "hyprctl dispatch workspace name:comms"
           ];
           general = {
-            no_border_on_floating = true;
+            no_border_on_floating = false;
             gaps_in = 1;
             gaps_out = 2;
             border_size = 1;
@@ -621,6 +621,7 @@ with lib;
             "workspace name:media, class:^(chrome-fanduelsportsnetwork\.com__teams_nhl-blue-jackets-Default)$"
 
             # Workspace: games
+            "workspace name:games, class:^(steam)$"
             "workspace name:games, class:^(steam_app_.*)$"
             "workspace name:games, class:^(starrail\.exe)$"
             "workspace name:games, class:^(moe\.launcher\.the-honkers-railway-launcher)$"
