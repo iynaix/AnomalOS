@@ -149,22 +149,63 @@ sudo journalctl -u dnscrypt-proxy
 **Available in**: All configurations (when desktop feature enabled)
 
 **Features:**
-- Wayland compositor with tiling capabilities
+- Wayland compositor with dwindle tiling layout
 - GPU acceleration
-- Multiple workspace support
+- Named workspace organization
 - Window animations and effects
 - Screen capture utilities (grim, slurp)
+- Special workspace for utility applications
+
+**Workspace Organization:**
+
+The system uses a named workspace scheme designed for efficient workflow management:
+
+1. **comms** (Super+1): Communication apps (Discord/Vesktop)
+2. **dev** (Super+2): Development environment (Zed, WezTerm terminals)
+3. **games** (Super+3): Gaming (Steam, game launchers, game windows)
+4. **media** (Super+4): Media playback (VLC, QMMP, streaming apps)
+5. **web** (Super+5): Web browsing (Helium, Firefox, Chrome apps)
+6. **control-panel** (Super+Grave): Special workspace for utilities
+
+**Control-Panel Utilities:**
+- pavucontrol: Audio volume control
+- nmtui: Network configuration
+- bluetui: Bluetooth management
+- btop: System resource monitor
+- qalculate-gtk: Calculator
+- piper: Gaming mouse configuration
+- kwalletmanager: Password wallet manager
+
+**Workspace Navigation:**
+- `Super+1-5`: Jump to named workspace
+- `Super+PgUp/PgDn`: Cycle through workspaces
+- `Super+MouseWheel`: Cycle through workspaces
+- `Super+Grave`: Toggle control-panel overlay
+
+**Auto-Launch:**
+Applications automatically open on their designated workspaces:
+- Steam, Vesktop, VLC launch at login on their respective workspaces
+- System boots to comms workspace after auto-launch completes
+- Utility apps open on control-panel when launched via desktop entries or waybar
+
+**Window Behavior:**
+- Dialogs float with natural Wayland positioning (xdg-dialog protocol)
+- Auth dialogs (KWallet) stay focused to prevent credential exposure
+- Games workspace: no gaps, no rounding, full opacity
+- Other workspaces: 1px gaps in, 2px gaps out, slight transparency (0.90 active, 0.80 inactive)
+- Media/streaming apps: full opacity overrides for optimal viewing
 
 **Included Utilities:**
 - `grim`: Screenshot utility
 - `slurp`: Region selector
 - `wl-clipboard`: Clipboard manager
 - `hyprpicker`: Color picker
-- `hyprpaper`: Wallpaper manager
+- `swww`: Animated wallpaper daemon
 
 **Configuration:**
 - System-level: `modules/desktop/hyprland.nix`
-- User-level: `home.nix` (for custom keybindings and settings)
+- Desktop entries: `modules/desktop/default.nix`
+- User-level: `home.nix` (for additional customization)
 
 ### Waybar Status Bar
 

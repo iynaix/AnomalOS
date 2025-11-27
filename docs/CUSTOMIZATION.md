@@ -161,97 +161,180 @@ stylix.fonts = {
 
 ### Hyprland Configuration
 
-System-level Hyprland is configured in `modules/desktop/hyprland.nix`, but user-level configuration goes in `home.nix`:
+System-level Hyprland is configured in `modules/desktop/hyprland.nix`. The current setup uses named workspaces with automatic window routing.
+
+**Workspace Customization:**
+
+To modify workspace names or keybinds, edit `modules/desktop/hyprland.nix`:
 
 ```nix
-# In home.nix
-wayland.windowManager.hyprland = {
-  enable = true;
-  settings = {
-    # Monitor configuration
-    monitor = [
-      "DP-1,2560x1440@144,0x0,1"
-      "HDMI-A-1,1920x1080@60,2560x0,1"
-    ];
+# Define workspace properties
+workspace = [
+  "1, name:comms, gapsin:1, gapsout:2"
+  "2, name:dev, gapsin:1, gapsout:2"
+  "3, name:games, gapsin:0, gapsout:0, rounding:false"
+  "4, name:media, gapsin:1, gapsout:2"
+  "5, name:web, gapsin:1, gapsout:2"
+  "special:control-panel, gapsin:10, gapsout:20"
+];
 
-    # Keybindings
-    bind = [
-      "SUPER, Return, exec, wezterm"
-      "SUPER, Q, killactive"
-      "SUPER, F, fullscreen"
-      "SUPER, Space, togglefloating"
-      # Add more keybindings
-    ];
+# Workspace navigation keybinds
+bind = [
+  "$mainMod, 1, workspace, name:comms"
+  "$mainMod, 2, workspace, name:dev"
+  # ... more workspace binds
+  "$mainMod, grave, togglespecialworkspace, control-panel"
+];
+```
 
-    # Window rules
-    windowrulev2 = [
-      "float,class:(wezterm),title:(floating)"
-      "workspace 2,class:(firefox)"
-      # Add more rules
-    ];
+**Adding Window Routing Rules:**
 
-    # Animations
-    animation = [
-      "windows,1,3,default,slide"
-      "border,1,5,default"
-      "fade,1,5,default"
-      "workspaces,1,3,default,slide"
-    ];
+Route specific applications to workspaces by window class:
 
-    # Input configuration
-    input = {
-      kb_layout = "us";
-      follow_mouse = 1;
-      sensitivity = 0;
-      touchpad = {
-        natural_scroll = true;
-      };
-    };
+```nix
+windowrulev2 = [
+  # Route to specific workspace
+  "workspace name:dev, class:^(code)$"
+  "workspace name:web, class:^(firefox)$"
 
-    # General settings
-    general = {
-      gaps_in = 5;
-      gaps_out = 10;
-      border_size = 2;
-      layout = "dwindle";
-    };
+  # Float specific window types
+  "float, class:^(pavucontrol)$"
+
+  # Opacity overrides
+  "opacity 1.0 override, class:^(vlc)$"
+];
+```
+
+**Finding Window Classes:**
+
+```bash
+# Run this, then click the window
+hyprctl clients | grep class
+```
+
+**Auto-Launch Applications:**
+
+Configure apps to start on specific workspaces at login:
+
+```nix
+exec-once = [
+  "[workspace name:games] steam"
+  "[workspace name:comms] vesktop"
+  "[workspace name:media silent] vlc"
+  "hyprctl dispatch workspace name:comms"  # Start on this workspace
+];
+```
+
+**Customizing Control-Panel Utilities:**
+
+To add an application to the control-panel workspace, create a desktop entry override in `modules/desktop/default.nix`:
+
+```nix
+xdg.dataFile."applications/myapp.desktop".text = ''
+  [Desktop Entry]
+  Name=My App
+  Exec=hyprctl dispatch exec '[workspace special:control-panel; float] myapp'
+  Type=Application
+  Terminal=false
+'';
+```
+
+**Monitor Configuration:**
+
+For multi-monitor setups, edit the monitor section in `modules/desktop/hyprland.nix`:
+
+```nix
+monitor = [
+  "DP-1,2560x1440@144,0x0,1"
+  "HDMI-A-1,1920x1080@60,2560x0,1"
+  ",preferred,auto,1"  # Auto-configure other monitors
+];
+```
+
+**Visual Customization:**
+
+Adjust window appearance in the decoration and general sections:
+
+```nix
+decoration = {
+  rounding = 2;
+  active_opacity = 0.90;
+  inactive_opacity = 0.80;
+  blur = {
+    enabled = true;
+    size = 3;
+    passes = 1;
   };
+};
+
+general = {
+  border_size = 1;
+  gaps_in = 1;
+  gaps_out = 2;
+  layout = "dwindle";
 };
 ```
 
 ### Waybar Configuration
 
-Configure Waybar in `home.nix`:
+Waybar is configured in `modules/desktop/hyprland.nix` and integrates with the named workspace system.
+
+**Workspace Display:**
+
+The workspace module shows named workspaces in the correct order:
 
 ```nix
-programs.waybar = {
-  enable = true;
-  settings = {
-    mainBar = {
-      layer = "top";
-      position = "top";
-      height = 30;
-
-      modules-left = [ "hyprland/workspaces" ];
-      modules-center = [ "clock" ];
-      modules-right = [ "cpu" "memory" "network" "pulseaudio" ];
-
-      clock = {
-        format = "{:%H:%M %d/%m/%Y}";
-        tooltip = false;
-      };
-
-      cpu = {
-        format = "  {usage}%";
-        interval = 2;
-      };
-
-      memory = {
-        format = "  {percentage}%";
-        interval = 2;
-      };
-    };
+"hyprland/workspaces" = {
+  disable-scroll = false;
+  all-outputs = true;
+  format = "{name}";
+  on-click = "activate";
+  sort-by-number = true;
+  persistent-workspaces = {
+    "comms" = [ ];
+    "web" = [ ];
+    "dev" = [ ];
+    "media" = [ ];
+    "games" = [ ];
   };
+};
+```
+
+**Customizing Module Order:**
+
+To change what appears in waybar, edit the modules-left, modules-center, and modules-right arrays:
+
+```nix
+modules-left = [ "hyprland/workspaces" "hyprland/window" ];
+modules-center = [ "clock" ];
+modules-right = [
+  "tray"
+  "bluetooth"
+  "network"
+  "pulseaudio"
+  "cpu"
+  "memory"
+  "disk"
+  "battery"
+];
+```
+
+**Adding Custom Click Actions:**
+
+Waybar modules support click actions for quick access:
+
+```nix
+network = {
+  format-wifi = "{essid} ({signalStrength}%) ";
+  format-ethernet = "{ipaddr}/{cidr} ";
+  format-disconnected = "Disconnected ⚠";
+  on-click-right = "hyprctl dispatch exec '[workspace special:control-panel; float] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e nmtui'";
+};
+
+bluetooth = {
+  format = " {status}";
+  format-connected = " {device_alias}";
+  on-click-right = "hyprctl dispatch exec '[workspace special:control-panel; float] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e bluetui'";
 };
 ```
 
