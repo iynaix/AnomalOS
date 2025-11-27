@@ -19,9 +19,55 @@ in
 
   programs.fish = {
     enable = true;
+
+    plugins = [
+      # fzf integration - fuzzy finder for history, files, git
+      {
+        name = "fzf-fish";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
+
+      # Directory jumping - tracks and jumps to frequently used directories
+      {
+        name = "z";
+        src = pkgs.fishPlugins.z.src;
+      }
+
+      # Notifications for long-running commands
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
+
+      # Colorize man pages
+      {
+        name = "colored-man-pages";
+        src = pkgs.fishPlugins.colored-man-pages.src;
+      }
+
+      # Auto-close quotes, parentheses, brackets
+      {
+        name = "autopair";
+        src = pkgs.fishPlugins.autopair-fish.src;
+      }
+
+      # Remove failed commands from history
+      {
+        name = "sponge";
+        src = pkgs.fishPlugins.sponge.src;
+      }
+
+      # Interactive git operations with fzf
+      {
+        name = "forgit";
+        src = pkgs.fishPlugins.forgit.src;
+      }
+    ];
+
     shellAliases = {
       cbj = "tmux kill-session -t cbj 2>/dev/null; tmux new-session -d -s cbj 'NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#google-chrome -- --app=\"https://fanduelsportsnetwork.com/teams/nhl-blue-jackets\"'";
     };
+
     interactiveShellInit = ''
       set -g fish_color_param b392f0  # base05 light purple
       set -g fish_color_autosuggestion 2f143f  # base03 medium purple
