@@ -72,7 +72,7 @@ with lib;
       };
 
       home.activation.setWallpaper = ''
-        ${pkgs.swww}/bin/swww img ~/.local/share/wallpapers/HSR.png --resize stretch 2>/dev/null || true
+        ${pkgs.swww}/bin/swww img ~/.local/share/wallpapers/The Rail Unto the Stars.png --resize stretch 2>/dev/null || true
       '';
 
       home.file.".local/bin/rotate-wallpaper.sh" = {
@@ -99,12 +99,12 @@ with lib;
 
       systemd.user.timers.rotate-wallpaper = {
         Unit = {
-          Description = "Rotate wallpaper every 10 minutes";
+          Description = "Rotate wallpaper every 3 minutes";
           Requires = [ "rotate-wallpaper.service" ];
         };
         Timer = {
-          OnBootSec = "10m";
-          OnUnitActiveSec = "10m";
+          OnBootSec = "3m";
+          OnUnitActiveSec = "3m";
           Persistent = true;
         };
         Install = {
@@ -439,9 +439,9 @@ with lib;
           ];
           general = {
             no_border_on_floating = true;
-            gaps_in = 2;
-            gaps_out = 5;
-            border_size = 3;
+            gaps_in = 1;
+            gaps_out = 2;
+            border_size = 2;
             resize_on_border = false;
             allow_tearing = false;
             layout = "dwindle";
@@ -462,16 +462,16 @@ with lib;
             disable_hyprland_logo = lib.mkForce false;
           };
           decoration = {
-            rounding = 5;
-            active_opacity = 0.90;
-            inactive_opacity = 0.80;
+            rounding = 2;
+            active_opacity = 1.00;
+            inactive_opacity = 0.90;
             shadow = {
               enabled = true;
               range = 8;
               render_power = 4;
             };
             blur = {
-              enabled = true;
+              enabled = false;
               size = 2;
               passes = 1;
               new_optimizations = true;
