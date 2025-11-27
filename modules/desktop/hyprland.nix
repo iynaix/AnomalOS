@@ -439,9 +439,10 @@ with lib;
             "kwalletd6 &"
             "tmux new -d waybar &"
             "hyprctl keyword master:orientation top"
-            "[workspace name:games silent] env STEAM_FRAME_FORCE_CLOSE=1 steam -silent"
-            "[workspace name:comms silent] vesktop --start-minimized"
+            "[workspace name:games] steam"
+            "[workspace name:comms] vesktop"
             "[workspace name:media silent] vlc"
+            "hyprctl dispatch workspace name:comms"
           ];
           general = {
             no_border_on_floating = true;
@@ -534,6 +535,8 @@ with lib;
             "$mainMod, 5, workspace, name:web"
             "$mainMod, page_down, workspace, m+1"
             "$mainMod, page_up, workspace, m-1"
+            "$mainMod, mouse_down, workspace, m-1"
+            "$mainMod, mouse_up, workspace, m+1"
             "$mainMod, grave, togglespecialworkspace, control-panel"
             "$mainMod, pause, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ", PRINT, exec, hyprshot -m region --clipboard-only"
