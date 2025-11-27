@@ -429,7 +429,6 @@ cc status       # Show system status
 **Productivity:**
 - Anki: Flashcard application for learning
 - Qalculate: Advanced calculator
-- Alarm Clock Applet: Desktop alarm and timer
 
 **Utilities:**
 - Pavucontrol: PulseAudio/PipeWire volume control

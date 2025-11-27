@@ -75,7 +75,6 @@ with lib;
       vlc
 
       # Utilities
-      alarm-clock-applet
       bluetui
       fastfetch
       gparted
@@ -461,6 +460,20 @@ with lib;
         MimeType=inode/directory
         Categories=Utility;Core;System;FileTools;FileManager;ConsoleOnly;
         Keywords=File;Manager;Explorer;Browser;Launcher;
+      '';
+
+      xdg.dataFile."applications/btop.desktop".text = ''
+        [Desktop Entry]
+        Type=Application
+        Version=1.0
+        Name=btop++
+        GenericName=System Monitor
+        Comment=Resource monitor that shows usage and stats for processor, memory, disks, network and processes
+        Icon=btop
+        Exec=env WEZTERM_CONFIG_FILE=/home/${config.mySystem.user.name}/.config/wezterm/wezterm.lua wezterm -e btop
+        Terminal=false
+        Categories=System;Monitor;ConsoleOnly;
+        Keywords=system;process;task
       '';
 
       # Fastfetch configuration
