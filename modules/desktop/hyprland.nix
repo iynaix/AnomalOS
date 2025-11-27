@@ -441,7 +441,7 @@ with lib;
             no_border_on_floating = true;
             gaps_in = 1;
             gaps_out = 2;
-            border_size = 2;
+            border_size = 0;
             resize_on_border = false;
             allow_tearing = false;
             layout = "dwindle";
@@ -566,37 +566,20 @@ with lib;
 
             # Float common dialog windows (let them position naturally)
             "float, title:^(Open)(.*)$"
-            "stayfocused, title:^(Open)(.*)$"
-
             "float, title:^(Save)(.*)$"
-            "stayfocused, title:^(Save)(.*)$"
-
             "float, title:^(Save As)(.*)$"
-            "stayfocused, title:^(Save As)(.*)$"
-
             "float, title:^(Choose)(.*)$"
             "float, title:^(Select)(.*)$"
-            "stayfocused, title:^(Select)(.*)$"
 
             # Common dialog patterns
             "float, title:^(Preferences)(.*)$"
-            "stayfocused, title:^(Preferences)(.*)$"
-
             "float, title:^(Settings)(.*)$"
-            "stayfocused, title:^(Settings)(.*)$"
-
             "float, title:^(Properties)(.*)$"
-            "stayfocused, title:^(Properties)(.*)$"
 
             # File manager dialogs
             "float, title:^(Create Folder)(.*)$"
-            "stayfocused, title:^(Create Folder)(.*)$"
-
             "float, title:^(Rename)(.*)$"
-            "stayfocused, title:^(Rename)(.*)$"
-
             "float, title:^(Delete)(.*)$"
-            "stayfocused, title:^(Delete)(.*)$"
 
             # Browser popups
             "float, title:^(Picture-in-Picture)(.*)$"
@@ -604,10 +587,7 @@ with lib;
 
             # Generic popup patterns (catch-all)
             "float, title:^(.*[Dd]ialog.*)$"
-            "stayfocused, title:^(.*[Dd]ialog.*)$"
-
             "float, title:^(.*[Pp]opup.*)$"
-            "stayfocused, title:^(.*[Pp]opup.*)$"
 
             # Steam games configuration - use tags for reliable rule application
             "tag +games, class:^(steam_app_.*)"
