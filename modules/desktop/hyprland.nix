@@ -99,12 +99,12 @@ with lib;
 
       systemd.user.timers.rotate-wallpaper = {
         Unit = {
-          Description = "Rotate wallpaper every hour";
+          Description = "Rotate wallpaper every 10 minutes";
           Requires = [ "rotate-wallpaper.service" ];
         };
         Timer = {
-          OnBootSec = "60m";
-          OnUnitActiveSec = "60m";
+          OnBootSec = "10m";
+          OnUnitActiveSec = "10m";
           Persistent = true;
         };
         Install = {
@@ -159,7 +159,7 @@ with lib;
               tooltip-format = "Reboot";
             };
             "custom/power" = {
-              format = "<span color='#${config.lib.stylix.colors.base0E}'>⏻ </span>";
+              format = "<span color='#${config.lib.stylix.colors.base0E}'>⏻  </span>";
               on-click = "systemctl poweroff";
               tooltip = true;
               tooltip-format = "Power Off";
@@ -172,7 +172,7 @@ with lib;
               format-disconnected = "<span color='#${config.lib.stylix.colors.base0E}'>   </span>Disconnected ";
               format-alt = "<span color='#${config.lib.stylix.colors.base0C}'> 󰤨  </span>{essid} ";
               interval = 1;
-              on-click-right = "kitty -e nmtui";
+              on-click-right = "env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e nmtui";
               tooltip = true;
             };
             pulseaudio = {
@@ -230,7 +230,7 @@ with lib;
               tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
               tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
               tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
-              on-click-right = "kitty -e bluetui";
+              on-click-right = "env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e bluetui";
               tooltip = true;
             };
           }
@@ -249,7 +249,7 @@ with lib;
 
           window#waybar {
               background: alpha(@base00, 0.5);
-              border-radius: 0 0 10px 10px;
+              border-radius: 0 0 25px 25px;
           }
 
           #waybar {
@@ -418,16 +418,16 @@ with lib;
       wayland.windowManager.hyprland = lib.mkIf config.mySystem.features.desktop {
         enable = true;
         settings = {
-          "$terminal" = "kitty";
-          "$fileManager" = "kitty -e yazi";
+          "$terminal" = "wezterm";
+          "$fileManager" = "wezterm -e yazi";
           "$menu" = "rofi -show drun -show-icons -drun-display-format '{name}'";
-          "$webBrowser" = "librewolf";
+          "$webBrowser" = "helium";
           "$mainMod" = "SUPER";
           env = [
             "HYPRCURSOR_THEME,Nordzy-hyprcursors"
             "HYPRCURSOR_SIZE,30"
-            "TERMINAL,kitty"
-            "XDG_TERMINAL_EDITOR,kitty"
+            "TERMINAL,wezterm"
+            "XDG_TERMINAL_EDITOR,wezterm"
           ];
           exec-once = [
             "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
