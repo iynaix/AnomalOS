@@ -533,10 +533,10 @@ with lib;
             "$mainMod, 3, workspace, name:games"
             "$mainMod, 4, workspace, name:media"
             "$mainMod, 5, workspace, name:web"
-            "$mainMod, page_down, workspace, m+1"
-            "$mainMod, page_up, workspace, m-1"
-            "$mainMod, mouse_down, workspace, m-1"
-            "$mainMod, mouse_up, workspace, m+1"
+            "$mainMod, page_down, workspace, +1"
+            "$mainMod, page_up, workspace, -1"
+            "$mainMod, mouse_down, workspace, -1"
+            "$mainMod, mouse_up, workspace, +1"
             "$mainMod, grave, togglespecialworkspace, control-panel"
             "$mainMod, pause, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ", PRINT, exec, hyprshot -m region --clipboard-only"
@@ -662,6 +662,7 @@ with lib;
             "opacity 1.0 override 1.0 override 1.0 override, class:^(starrail\.exe)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(chrome-fanduelsportsnetwork\.com__teams_nhl-blue-jackets-Default)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(steam_app_.*)$"
+            "opacity 1.0 override 1.0 override 1.0 override, class:^(steam)$"
           ];
         };
       };
