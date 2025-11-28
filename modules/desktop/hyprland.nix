@@ -439,8 +439,8 @@ with lib;
             "kwalletd6 &"
             "tmux new -d waybar &"
             # "hyprctl keyword master:orientation top"
-            # "[workspace name:games] steam"
-            # "[workspace name:comms] vesktop"
+            "[workspace name:games] steam -silent"
+            "[workspace name:comms] vesktop --start-minimized"
             # "[workspace name:media silent] vlc"
             "hyprctl dispatch workspace name:comms"
           ];
@@ -533,10 +533,10 @@ with lib;
             "$mainMod, 3, workspace, name:games"
             "$mainMod, 4, workspace, name:media"
             "$mainMod, 5, workspace, name:web"
-            "$mainMod, page_down, workspace, m+1"
-            "$mainMod, page_up, workspace, m-1"
-            "$mainMod, mouse_down, workspace, m-1"
-            "$mainMod, mouse_up, workspace, m+1"
+            "$mainMod, page_down, workspace, e+1"
+            "$mainMod, page_up, workspace, e-1"
+            "$mainMod, mouse_down, workspace, e-1"
+            "$mainMod, mouse_up, workspace, e+1"
             "$mainMod, grave, togglespecialworkspace, control-panel"
             "$mainMod, pause, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ", PRINT, exec, hyprshot -m region --clipboard-only"
@@ -618,6 +618,7 @@ with lib;
             # Workspace: media
             "workspace name:media, class:^(vlc)$"
             "workspace name:media, class:^(org\.qmmp\.qmmp)$"
+            "workspace name:media, class:^(com\.stremio\.stremio)$"
             "workspace name:media, class:^(chrome-fanduelsportsnetwork\.com__teams_nhl-blue-jackets-Default)$"
 
             # Workspace: games
@@ -627,7 +628,8 @@ with lib;
             "workspace name:games, class:^(moe\.launcher\.the-honkers-railway-launcher)$"
             "workspace name:games, title:^(Honkai: Star Rail)$"
             "fullscreen, class:^(steam_app_.*)$"
-            "fullscreen, class:^(starrail\.exe)$"
+            "tile, class:^(starrail\.exe)$"
+            "suppressevent fullscreen, class:^(starrail\.exe)$"
 
             # Control-panel workspace utilities (must come before dev workspace wezterm rule)
             "float, class:^(pavucontrol)$"
