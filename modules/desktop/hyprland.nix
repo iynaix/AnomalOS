@@ -140,15 +140,18 @@ with lib;
             "hyprland/workspaces" = {
               disable-scroll = false;
               all-outputs = true;
-              format = "{name}";
+              format = "{icon}";
+              format-icons = {
+                "1" = "comms";
+                "2" = "dev";
+                "3" = "games";
+                "4" = "media";
+                "5" = "web";
+              };
               on-click = "activate";
               sort-by-number = true;
               persistent-workspaces = {
-                "comms" = [ ];
-                "web" = [ ];
-                "dev" = [ ];
-                "media" = [ ];
-                "games" = [ ];
+                "*" = 5;
               };
             };
             "custom/lock" = {
@@ -177,7 +180,7 @@ with lib;
               format-disconnected = "<span color='#${config.lib.stylix.colors.base0E}'>   </span>Disconnected ";
               format-alt = "<span color='#${config.lib.stylix.colors.base0C}'> 󰤨  </span>{essid} ";
               interval = 1;
-              on-click-right = "hyprctl dispatch exec '[workspace special:control-panel; float] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e nmtui'";
+              on-click-right = "hyprctl dispatch exec '[workspace special:control-panel] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e nmtui'";
               tooltip = true;
             };
             pulseaudio = {
@@ -235,7 +238,7 @@ with lib;
               tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
               tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
               tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
-              on-click-right = "hyprctl dispatch exec '[workspace special:control-panel; float] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e bluetui'";
+              on-click-right = "hyprctl dispatch exec '[workspace special:control-panel] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e bluetui'";
               tooltip = true;
             };
           }
@@ -438,11 +441,9 @@ with lib;
             "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
             "kwalletd6 &"
             "tmux new -d waybar &"
-            # "hyprctl keyword master:orientation top"
-            "[workspace name:games] steam -silent"
-            "[workspace name:comms] vesktop --start-minimized"
-            # "[workspace name:media silent] vlc"
-            "hyprctl dispatch workspace name:comms"
+            "[workspace 3] steam -silent"
+            "[workspace 1] vesktop --start-minimized"
+            "hyprctl dispatch workspace 1"
           ];
           general = {
             no_border_on_floating = false;
@@ -458,12 +459,12 @@ with lib;
             preserve_split = true;
           };
           workspace = [
-            "1, name:comms, gapsin:1, gapsout:2"
-            "2, name:dev, gapsin:1, gapsout:2"
-            "3, name:games, gapsin:0, gapsout:0, rounding:false"
-            "4, name:media, gapsin:1, gapsout:2"
-            "5, name:web, gapsin:1, gapsout:2"
-            "special:control-panel, gapsin:10, gapsout:20"
+            "1, gapsin:1, gapsout:2"
+            "2, gapsin:1, gapsout:2"
+            "3, gapsin:0, gapsout:0, rounding:false"
+            "4, gapsin:1, gapsout:2"
+            "5, gapsin:1, gapsout:2"
+            "special:control-panel, gapsin:2, gapsout:5"
           ];
           master = {
             always_keep_position = false;
@@ -528,11 +529,11 @@ with lib;
             "$mainMod, G, togglefloating"
             "$mainMod, P, pseudo, "
             "$mainMod, O, togglesplit, "
-            "$mainMod, 1, workspace, name:comms"
-            "$mainMod, 2, workspace, name:dev"
-            "$mainMod, 3, workspace, name:games"
-            "$mainMod, 4, workspace, name:media"
-            "$mainMod, 5, workspace, name:web"
+            "$mainMod, 1, workspace, 1"
+            "$mainMod, 2, workspace, 2"
+            "$mainMod, 3, workspace, 3"
+            "$mainMod, 4, workspace, 4"
+            "$mainMod, 5, workspace, 5"
             "$mainMod, page_down, workspace, e+1"
             "$mainMod, page_up, workspace, e-1"
             "$mainMod, mouse_down, workspace, e-1"
@@ -602,49 +603,52 @@ with lib;
             "float, title:^(.*[Dd]ialog.*)$"
             "float, title:^(.*[Pp]opup.*)$"
 
-            # Workspace: comms
-            "workspace name:comms, class:^(vesktop)$"
-            "workspace name:comms, class:^(discord)$"
+            # Workspace: 1 (comms)
+            "workspace 1, class:^(vesktop)$"
+            "workspace 1, class:^(discord)$"
 
-            # Workspace: web
-            "workspace name:web, class:^(helium)$"
-            "workspace name:web, class:^(firefox)$"
-            "workspace name:web, class:^(chromium-browser)$"
+            # Workspace: 2 (dev)
+            "workspace 2, class:^(dev\.zed\.Zed)$"
+            "workspace 2, class:^(Zed)$"
 
-            # Workspace: dev
-            "workspace name:dev, class:^(dev\.zed\.Zed)$"
-            "workspace name:dev, class:^(Zed)$"
+            # Workspace: 3 (games)
+            "workspace 3, class:^(steam)$"
+            "workspace 3, class:^(steam_app_.*)$"
+            "workspace 3, class:^(starrail\.exe)$"
+            "workspace 3, class:^(moe\.launcher\.the-honkers-railway-launcher)$"
+            "workspace 3, title:^(Honkai: Star Rail)$"
 
-            # Workspace: media
-            "workspace name:media, class:^(vlc)$"
-            "workspace name:media, class:^(org\.qmmp\.qmmp)$"
-            "workspace name:media, class:^(com\.stremio\.stremio)$"
-            "workspace name:media, class:^(chrome-fanduelsportsnetwork\.com__teams_nhl-blue-jackets-Default)$"
+            # Workspace: 4 (media)
+            "workspace 4, class:^(vlc)$"
+            "workspace 4, class:^(org\.qmmp\.qmmp)$"
+            "workspace 4, class:^(com\.stremio\.stremio)$"
+            "workspace 4, class:^(chrome-fanduelsportsnetwork\.com__teams_nhl-blue-jackets-Default)$"
 
-            # Workspace: games
-            "workspace name:games, class:^(steam)$"
-            "workspace name:games, class:^(steam_app_.*)$"
-            "workspace name:games, class:^(starrail\.exe)$"
-            "workspace name:games, class:^(moe\.launcher\.the-honkers-railway-launcher)$"
-            "workspace name:games, title:^(Honkai: Star Rail)$"
+            # Workspace: 5 (web)
+            "workspace 5, class:^(helium)$"
+            "workspace 5, class:^(firefox)$"
+            "workspace 5, class:^(chromium-browser)$"
+            "focusonactivate, class:^(helium)$"
+            "focusonactivate, class:^(firefox)$"
+            "focusonactivate, class:^(chromium-browser)$"
             "fullscreen, class:^(steam_app_.*)$"
             "tile, class:^(starrail\.exe)$"
             "suppressevent fullscreen, class:^(starrail\.exe)$"
 
             # Control-panel workspace utilities (must come before dev workspace wezterm rule)
-            "float, class:^(pavucontrol)$"
+            "tile, class:^(pavucontrol)$"
             "workspace special:control-panel, class:^(pavucontrol)$"
-            "float, class:^(org\.pulseaudio\.pavucontrol)$"
+            "tile, class:^(org\.pulseaudio\.pavucontrol)$"
             "workspace special:control-panel, class:^(org\.pulseaudio\.pavucontrol)$"
-            "float, title:^(nmtui)$"
+            "tile, title:^(nmtui)$"
             "workspace special:control-panel, title:^(nmtui)$"
-            "float, title:^(bluetui)$"
+            "tile, title:^(bluetui)$"
             "workspace special:control-panel, title:^(bluetui)$"
             "float, class:^(qalculate-gtk)$"
             "workspace special:control-panel, class:^(qalculate-gtk)$"
-            "float, class:^(btop)$"
+            "tile, class:^(btop)$"
             "workspace special:control-panel, class:^(btop)$"
-            "float, title:^(btop)$"
+            "tile, title:^(btop)$"
             "workspace special:control-panel, title:^(btop)$"
             "float, class:^(cliphist)$"
             "workspace special:control-panel, class:^(cliphist)$"
@@ -655,8 +659,8 @@ with lib;
             "float, class:^(org\.kde\.kwalletmanager)$"
             "workspace special:control-panel, class:^(org\.kde\.kwalletmanager)$"
 
-            # Workspace: dev - wezterm terminals (must come after control-panel utilities)
-            "workspace name:dev, class:^(org\.wezfurlong\.wezterm)$"
+            # Workspace: 2 (dev) - wezterm terminals (must come after control-panel utilities)
+            "workspace 2, class:^(org\.wezfurlong\.wezterm)$"
 
             # Opacity overrides
             "opacity 1.0 override 1.0 override 1.0 override, class:^(vesktop)$"
