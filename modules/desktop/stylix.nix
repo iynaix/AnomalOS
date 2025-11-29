@@ -10,15 +10,16 @@ with lib;
     # Stylix theming
     stylix = {
       enable = true;
+      enableReleaseChecks = false;
       base16Scheme = ./anomal-16.yaml;
       polarity = "dark";
       targets = {
         gtk.enable = true;
         qt.enable = true;
-        console.enable = true; # TTY theming
-        grub.enable = true; # Bootloader theme
-        plymouth.enable = true; # Boot splash
-        nixos-icons.enable = true; # System icons
+        console.enable = true;
+        grub.enable = true;
+        plymouth.enable = true;
+        nixos-icons.enable = true;
       };
     };
   };

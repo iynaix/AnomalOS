@@ -15,6 +15,8 @@ in
     ./modules/claude-code-enhanced
   ];
 
+  stylix.enableReleaseChecks = false;
+
   programs.claude-code-enhanced.enable = true;
 
   programs.fish = {
