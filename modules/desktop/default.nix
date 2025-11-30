@@ -274,8 +274,9 @@ with lib;
         extraConfig = ''
           config.font = wezterm.font("Terminess Nerd Font")
           config.font_size = 14.0
-          config.use_fancy_tab_bar = true
-          config.enable_tab_bar = true
+          config.use_fancy_tab_bar = false
+          config.enable_tab_bar = false
+          config.enable_kitty_graphics = true
         '';
       };
       stylix.targets.wezterm.enable = true;
@@ -447,6 +448,7 @@ with lib;
         "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
         logo = {
           source = "~/dotfiles/modules/desktop/AnomLogo.png";
+          type = "kitty-direct";
           height = 20;
           width = 40;
         };
