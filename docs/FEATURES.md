@@ -163,7 +163,7 @@ The system uses a named workspace scheme designed for efficient workflow managem
 1. **comms** (Super+1): Communication apps (Discord/Vesktop)
 2. **dev** (Super+2): Development environment (Zed, WezTerm terminals)
 3. **games** (Super+3): Gaming (Steam, game launchers, game windows)
-4. **media** (Super+4): Media playback (VLC, QMMP, streaming apps)
+4. **media** (Super+4): Media playback (VLC, streaming apps)
 5. **web** (Super+5): Web browsing (Helium, Firefox, Chrome apps)
 6. **control-panel** (Super+Grave): Special workspace for utilities
 
@@ -246,7 +246,7 @@ Applications automatically open on their designated workspaces:
 **Current Theme**: Anomal-16 (dark)
 - Base colors: Deep purple backgrounds
 - Accent colors: Pink, cyan, yellow highlights
-- Wallpaper: `anomalos.jpg`
+- Wallpapers: Rotating from `~/.local/share/wallpapers/` every 3 minutes
 
 **Customization:**
 ```nix
@@ -256,10 +256,9 @@ stylix.base16Scheme = {
   base05 = "b392f0";  # Foreground
   # ... more colors
 };
-
-# Change wallpaper
-stylix.image = ./your-image.jpg;
 ```
+
+**Change wallpapers**: Add images to `~/.local/share/wallpapers/`
 
 **Location**: `modules/desktop/stylix.nix`
 
@@ -589,7 +588,7 @@ sudo restic -r /backup/restic-repo snapshots
 
 **Manual cleanup:**
 ```bash
-recycle                           # Clean generations older than 7 days
+recycle                           # Keep last 10 generations, remove older
 sudo nix-collect-garbage -d       # Clean all old generations
 sudo nix-collect-garbage --delete-older-than 30d  # Custom age
 ```

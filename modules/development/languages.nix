@@ -39,7 +39,6 @@ in
       # Language servers and formatters
       alejandra
       hyprls
-      nil
 
       # Programming languages
       nodejs

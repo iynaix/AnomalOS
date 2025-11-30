@@ -121,14 +121,13 @@ stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yam
 
 ### Changing the Wallpaper
 
-Replace `modules/desktop/anomalos.jpg` with your own image, or:
+The system uses `swww` for wallpaper management with automatic rotation every 3 minutes from `~/.local/share/wallpapers/`.
 
-```nix
-# In modules/desktop/stylix.nix
-stylix.image = ./my-wallpaper.jpg;  # Or .png
-```
+To change wallpapers:
+1. Add your images to `~/.local/share/wallpapers/`
+2. They will automatically rotate every 3 minutes
 
-Stylix will automatically extract colors from the wallpaper for theming.
+**Note**: Stylix uses the `anomal-16.yaml` color scheme directly, not wallpaper-based color extraction.
 
 ### Font Configuration
 

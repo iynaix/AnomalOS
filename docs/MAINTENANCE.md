@@ -11,7 +11,6 @@ This guide covers routine maintenance tasks, update procedures, and best practic
 | Component | Frequency | Command | Notes |
 |-----------|-----------|---------|-------|
 | **System Packages** | Weekly | `update && nrs-rig` | Updates flake inputs |
-| **Garbage Collection** | Weekly | `recycle` | Removes old generations (7+ days) |
 | **Backup Verification** | Monthly | See [BACKUP.md](BACKUP.md) | Verify backups work |
 | **Security Updates** | As needed | Check [NixOS Security](https://nixos.org/manual/nixos/stable/index.html#sec-security-updates) | Critical patches |
 | **Full System Upgrade** | Monthly | `nix flake update` | Major package updates |
@@ -92,11 +91,15 @@ nix.gc = {
 
 ### Manual Garbage Collection
 
+**Emergency cleanup** (if boot menu gets too full):
 ```bash
-# Remove old generations (7+ days)
-recycle
+recycle  # Keep last 10 generations, remove older
+```
 
-# Or manually with custom age
+**Note**: `recycle` is for emergency use only. The system automatically removes generations older than 90 days daily, and the boot menu shows only the 10 most recent entries.
+
+**Manual cleanup with custom age**:
+```bash
 sudo nix-collect-garbage --delete-older-than 14d
 
 # Aggressive cleanup (removes everything except current)
@@ -373,9 +376,12 @@ Binary caches are pre-configured:
 
 ```nix
 substituters = [
+  "https://cache.nixos.org"
+  "https://ezkea.cachix.org"
+  "https://cache.flakehub.com"
   "https://nix-community.cachix.org"
+  "https://chaotic-nyx.cachix.org"
   "https://hyprland.cachix.org"
-  "https://cuda-maintainers.cachix.org"
 ];
 ```
 
@@ -478,9 +484,6 @@ nh os switch .#nixosConfigurations.Rig
 ```bash
 # Update system
 rig-up
-
-# Clean old generations
-recycle
 
 # Test configuration
 nh os test .#nixosConfigurations.Rig

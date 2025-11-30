@@ -164,7 +164,7 @@ networking.firewall.allowedTCPPortRanges = [
 Located in `modules/desktop/`:
 
 - **hyprland.nix**: Hyprland compositor, utilities (grim, slurp, wl-clipboard)
-- **media.nix**: Applications (GIMP, LibreWolf, Anki, Vesktop), media tools
+- **media.nix**: Applications (GIMP, Anki, Vesktop), media tools
 - **stylix.nix**: Theme configuration (Anomal-16 color scheme)
 
 **Theme Customization:**
@@ -179,10 +179,9 @@ stylix.base16Scheme = {
 };
 ```
 
-Change wallpaper:
-```nix
-stylix.image = ./anomalos.jpg;  # Current wallpaper
-```
+Change wallpapers:
+- Add images to `~/.local/share/wallpapers/`
+- Wallpapers rotate automatically every 3 minutes via `swww`
 
 ### Development Modules
 
@@ -308,7 +307,7 @@ rig-up        # Update + test + prompt to switch (Rig)
 ```bash
 update        # Update flake inputs
 nfa           # Archive flake for sharing
-recycle       # Clean old system generations (7 days)
+recycle       # Keep last 10 generations, remove older
 ```
 
 ## Advanced Customization
@@ -333,7 +332,6 @@ nixosConfigurations.MyConfig = nixpkgs.lib.nixosSystem {
         claudeCode = true;
         development = true;
         gaming = false;       # Disable gaming
-        aiAssistant = true;
       };
     }
   ];
