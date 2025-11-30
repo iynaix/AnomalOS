@@ -80,8 +80,14 @@ with lib;
         text = ''
           #!/usr/bin/env bash
           wallpaper_dir="$HOME/.local/share/wallpapers"
+          cache_file="$HOME/.cache/hyprlock-wallpaper.png"
+
           image=$(ls "$wallpaper_dir"/* 2>/dev/null | shuf -n 1)
-          [ -n "$image" ] && ${pkgs.swww}/bin/swww img "$image" --resize stretch 2>/dev/null || true
+
+          if [ -n "$image" ]; then
+            ${pkgs.swww}/bin/swww img "$image" --resize stretch 2>/dev/null || true
+            cp "$image" "$cache_file"
+          fi
         '';
       };
 
@@ -421,6 +427,15 @@ with lib;
               font-style: italic;
           }
         '';
+      };
+
+      programs.hyprlock = {
+        enable = true;
+        settings = {
+          background = [{
+            path = "$HOME/.cache/hyprlock-wallpaper.png";
+          }];
+        };
       };
 
       wayland.windowManager.hyprland = lib.mkIf config.mySystem.features.desktop {

@@ -360,7 +360,7 @@ with lib;
           ];
         };
       };
-      stylix.targets.hyprlock.enable = true;
+      stylix.targets.hyprlock.enable = false;
 
       programs.wezterm = {
         enable = true;
