@@ -4,8 +4,7 @@
   pkgs,
   ...
 }:
-with lib;
-{
+with lib; {
   config = mkIf config.mySystem.features.desktop {
     programs = {
       hyprland = {
@@ -17,7 +16,7 @@ with lib;
 
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
       config = {
         common.default = "gtk";
         hyprland = {
@@ -25,9 +24,9 @@ with lib;
             "gtk"
             "hyprland"
           ];
-          "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-          "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-          "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+          "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+          "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
+          "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
         };
       };
     };
@@ -38,11 +37,11 @@ with lib;
     '';
 
     systemd.user.services.xdg-desktop-portal-gtk = {
-      wantedBy = [ "xdg-desktop-portal.service" ];
-      before = [ "xdg-desktop-portal.service" ];
+      wantedBy = ["xdg-desktop-portal.service"];
+      before = ["xdg-desktop-portal.service"];
     };
 
-    security.pam.services.hyprlock = { };
+    security.pam.services.hyprlock = {};
 
     services = {
       hypridle.enable = true;
@@ -95,8 +94,8 @@ with lib;
       systemd.user.services.rotate-wallpaper = {
         Unit = {
           Description = "Rotate wallpaper";
-          After = [ "graphical-session.target" ];
-          PartOf = [ "graphical-session.target" ];
+          After = ["graphical-session.target"];
+          PartOf = ["graphical-session.target"];
         };
         Service = {
           ExecStart = "%h/.local/bin/rotate-wallpaper.sh";
@@ -106,16 +105,17 @@ with lib;
 
       systemd.user.timers.rotate-wallpaper = {
         Unit = {
-          Description = "Rotate wallpaper every 3 minutes";
-          Requires = [ "rotate-wallpaper.service" ];
+          Description = "Rotate wallpaper at a regular interval";
+          Requires = ["rotate-wallpaper.service"];
         };
         Timer = {
-          OnBootSec = "3m";
-          OnUnitActiveSec = "3m";
+          OnBootSec = "42s";
+          OnUnitActiveSec = "42s";
+          AccuracySec = "1s";
           Persistent = true;
         };
         Install = {
-          WantedBy = [ "timers.target" ];
+          WantedBy = ["timers.target"];
         };
       };
 
@@ -438,26 +438,30 @@ with lib;
             grace = 0;
           };
 
-          background = [{
-            path = "/home/${config.mySystem.user.name}/.cache/hyprlock-wallpaper";
-          }];
+          background = [
+            {
+              path = "/home/${config.mySystem.user.name}/.cache/hyprlock-wallpaper";
+            }
+          ];
 
-          input-field = [{
-            size = "250, 50";
-            outline_thickness = 2;
-            dots_size = 0.2;
-            dots_spacing = 0.35;
-            dots_center = true;
-            outer_color = "rgb(${config.lib.stylix.colors.base04})";
-            inner_color = "rgba(${config.lib.stylix.colors.base00}BF)";
-            font_color = "rgb(${config.lib.stylix.colors.base04})";
-            fade_on_empty = false;
-            placeholder_text = "<span foreground='##${config.lib.stylix.colors.base04}'>Enter Password...</span>";
-            hide_input = false;
-            position = "0, -100";
-            halign = "center";
-            valign = "center";
-          }];
+          input-field = [
+            {
+              size = "250, 50";
+              outline_thickness = 2;
+              dots_size = 0.2;
+              dots_spacing = 0.35;
+              dots_center = true;
+              outer_color = "rgb(${config.lib.stylix.colors.base04})";
+              inner_color = "rgba(${config.lib.stylix.colors.base00}BF)";
+              font_color = "rgb(${config.lib.stylix.colors.base04})";
+              fade_on_empty = false;
+              placeholder_text = "<span foreground='##${config.lib.stylix.colors.base04}'>Enter Password...</span>";
+              hide_input = false;
+              position = "0, -100";
+              halign = "center";
+              valign = "center";
+            }
+          ];
 
           shape = [
             {
