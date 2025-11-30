@@ -438,7 +438,7 @@ with lib;
           };
 
           background = [{
-            path = "$HOME/.cache/hyprlock-wallpaper.png";
+            path = "/home/${config.mySystem.user.name}/.cache/hyprlock-wallpaper.png";
           }];
 
           input-field = [{
