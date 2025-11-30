@@ -35,6 +35,10 @@ folder = [
 edit = [
 	{ run = 'zeditor "$@"', orphan = true, desc = "Edit in Zed", for = "unix" },
 ]
+markdown = [
+	{ run = 'glow -p "$@"', block = true, desc = "View in Glow", for = "unix" },
+	{ run = 'zeditor "$@"', orphan = true, desc = "Edit in Zed", for = "unix" },
+]
 browser = [
 	{ run = 'xdg-open "$@"', orphan = true, desc = "Open in Browser", for = "unix" },
 ]
@@ -81,9 +85,13 @@ rules = [
 	# HTML files - open in browser, edit with Zed via interactive menu
 	{ mime = "text/html", use = [ "browser", "edit", "reveal" ] },
 
+	# Markdown files - match by extension AND mime type
+	{ name = "*.md", use = [ "markdown", "reveal" ] },
+	{ name = "*.markdown", use = [ "markdown", "reveal" ] },
+	{ mime = "text/markdown", use = [ "markdown", "reveal" ] },
+
 	# Text files - whitelist approach for Zed
 	{ mime = "text/plain", use = [ "edit", "reveal" ] },
-	{ mime = "text/markdown", use = [ "edit", "reveal" ] },
 	{ mime = "text/x-python", use = [ "edit", "reveal" ] },
 	{ mime = "text/x-shellscript", use = [ "edit", "reveal" ] },
 	{ mime = "text/x-{c,c++,java,rust}", use = [ "edit", "reveal" ] },

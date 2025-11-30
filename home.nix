@@ -98,6 +98,7 @@ in
     fastfetch
     fzf
     gh
+    glow
     gparted
     grim
     hyprls
