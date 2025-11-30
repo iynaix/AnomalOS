@@ -73,6 +73,7 @@ with lib;
 
       home.activation.setWallpaper = ''
         ${pkgs.swww}/bin/swww img ~/.local/share/wallpapers/The Rail Unto the Stars.png --resize stretch 2>/dev/null || true
+        ln -sf ~/.local/share/wallpapers/The\ Rail\ Unto\ the\ Stars.png ~/.cache/hyprlock-wallpaper
       '';
 
       home.file.".local/bin/rotate-wallpaper.sh" = {
@@ -80,13 +81,13 @@ with lib;
         text = ''
           #!/usr/bin/env bash
           wallpaper_dir="$HOME/.local/share/wallpapers"
-          cache_file="$HOME/.cache/hyprlock-wallpaper.png"
+          cache_link="$HOME/.cache/hyprlock-wallpaper"
 
           image=$(ls "$wallpaper_dir"/* 2>/dev/null | shuf -n 1)
 
           if [ -n "$image" ]; then
             ${pkgs.swww}/bin/swww img "$image" --resize stretch 2>/dev/null || true
-            cp "$image" "$cache_file"
+            ln -sf "$image" "$cache_link"
           fi
         '';
       };
@@ -438,7 +439,7 @@ with lib;
           };
 
           background = [{
-            path = "/home/${config.mySystem.user.name}/.cache/hyprlock-wallpaper.png";
+            path = "/home/${config.mySystem.user.name}/.cache/hyprlock-wallpaper";
           }];
 
           input-field = [{
