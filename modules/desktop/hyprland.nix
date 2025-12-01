@@ -187,7 +187,7 @@ with lib; {
               format-disconnected = "<span color='#${config.lib.stylix.colors.base0E}'>   </span>Disconnected ";
               format-alt = "<span color='#${config.lib.stylix.colors.base0C}'> 󰤨  </span>{essid} ";
               interval = 1;
-              on-click-right = "hyprctl dispatch exec '[workspace special:control-panel] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e nmtui'";
+              on-click-right = "hyprctl dispatch exec '[workspace special:control-panel] ghostty -e nmtui'";
               tooltip = true;
             };
             pulseaudio = {
@@ -245,7 +245,7 @@ with lib; {
               tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
               tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
               tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
-              on-click-right = "hyprctl dispatch exec '[workspace special:control-panel] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e bluetui'";
+              on-click-right = "hyprctl dispatch exec '[workspace special:control-panel] ghostty -e bluetui'";
               tooltip = true;
             };
           }
@@ -510,16 +510,16 @@ with lib; {
       wayland.windowManager.hyprland = lib.mkIf config.mySystem.features.desktop {
         enable = true;
         settings = {
-          "$terminal" = "wezterm";
-          "$fileManager" = "wezterm -e yazi";
+          "$terminal" = "ghostty";
+          "$fileManager" = "ghostty -e yazi";
           "$menu" = "rofi -show drun -show-icons -drun-display-format '{name}'";
           "$webBrowser" = "helium";
           "$mainMod" = "SUPER";
           env = [
             "HYPRCURSOR_THEME,Nordzy-hyprcursors"
             "HYPRCURSOR_SIZE,30"
-            "TERMINAL,wezterm"
-            "XDG_TERMINAL_EDITOR,wezterm"
+            "TERMINAL,ghostty"
+            "XDG_TERMINAL_EDITOR,ghostty"
           ];
           exec-once = [
             "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
@@ -743,8 +743,8 @@ with lib; {
             "float, class:^(org\.kde\.kwalletmanager)$"
             "workspace special:control-panel, class:^(org\.kde\.kwalletmanager)$"
 
-            # Workspace: 2 (dev) - wezterm terminals (must come after control-panel utilities)
-            "workspace 2, class:^(org\.wezfurlong\.wezterm)$"
+            # Workspace: 2 (dev) - ghostty terminals (must come after control-panel utilities)
+            "workspace 2, class:^(com\.mitchellh\.ghostty)$"
 
             # Opacity overrides
             "opacity 1.0 override 1.0 override 1.0 override, class:^(vesktop)$"

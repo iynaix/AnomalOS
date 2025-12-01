@@ -127,9 +127,9 @@ in
   home.sessionVariables = {
     EDITOR = "zed";
     NIXOS_OZONE_WL = "1";
-    TERMINAL = "wezterm";
+    TERMINAL = "ghostty";
     VISUAL = "zed";
-    XDG_TERMINAL_EDITOR = "wezterm";
+    XDG_TERMINAL_EDITOR = "ghostty";
     XDG_DATA_DIRS = "$HOME/.local/share/flatpak/exports/share:$HOME/.local/share:$XDG_DATA_DIRS";
   };
 
@@ -240,8 +240,8 @@ in
       "x-scheme-handler/https" = [ "helium.desktop" ];
 
       # Terminal
-      "application/x-terminal-emulator" = [ "org.wezfurlong.wezterm.desktop" ];
-      "x-scheme-handler/terminal" = [ "org.wezfurlong.wezterm.desktop" ];
+      "application/x-terminal-emulator" = [ "com.mitchellh.ghostty.desktop" ];
+      "x-scheme-handler/terminal" = [ "com.mitchellh.ghostty.desktop" ];
 
       # Torrents - Transmission
       "x-scheme-handler/magnet" = [ "transmission-gtk.desktop" ];

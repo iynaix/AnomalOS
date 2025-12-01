@@ -269,27 +269,27 @@ with lib;
 
       stylix.targets.hyprlock.enable = false;
 
-      programs.wezterm = {
+      programs.ghostty = {
         enable = true;
-        extraConfig = ''
-          config.font = wezterm.font("Terminess Nerd Font")
-          config.font_size = 14.0
-          config.use_fancy_tab_bar = false
-          config.enable_tab_bar = false
-          config.enable_kitty_graphics = true
-        '';
+        settings = {
+          font-family = "Terminess Nerd Font";
+          font-size = 13;
+          copy-on-select = true;
+          window-show-tab-bar = "never";
+          keybind = "shift+enter=text:\n";
+        };
       };
-      stylix.targets.wezterm.enable = true;
+      stylix.targets.ghostty.enable = true;
 
-      xdg.dataFile."applications/org.wezfurlong.wezterm.desktop".text = ''
+      xdg.dataFile."applications/com.mitchellh.ghostty.desktop".text = ''
         [Desktop Entry]
-        Name=WezTerm
-        Comment=Wez's Terminal Emulator
+        Name=Ghostty
+        Comment=Fast, feature-rich terminal emulator
         Keywords=shell;prompt;command;commandline;cmd;
-        Icon=org.wezfurlong.wezterm
-        StartupWMClass=org.wezfurlong.wezterm
-        TryExec=wezterm
-        Exec=env WEZTERM_CONFIG_FILE=/home/${config.mySystem.user.name}/.config/wezterm/wezterm.lua wezterm start --cwd .
+        Icon=com.mitchellh.ghostty
+        StartupWMClass=com.mitchellh.ghostty
+        TryExec=ghostty
+        Exec=ghostty
         Type=Application
         Categories=System;TerminalEmulator;Utility;
         Terminal=false
@@ -362,7 +362,7 @@ with lib;
         Name=Yazi
         Icon=yazi
         Comment=Blazing fast terminal file manager written in Rust, based on async I/O
-        Exec=env WEZTERM_CONFIG_FILE=/home/${config.mySystem.user.name}/.config/wezterm/wezterm.lua wezterm -e yazi %u
+        Exec=ghostty -e yazi %u
         Terminal=false
         Type=Application
         MimeType=inode/directory
@@ -378,7 +378,7 @@ with lib;
         GenericName=System Monitor
         Comment=Resource monitor that shows usage and stats for processor, memory, disks, network and processes
         Icon=btop
-        Exec=hyprctl dispatch exec '[workspace special:control-panel; float] env WEZTERM_CONFIG_FILE=/home/${config.mySystem.user.name}/.config/wezterm/wezterm.lua wezterm -e btop'
+        Exec=hyprctl dispatch exec '[workspace special:control-panel; tile] ghostty -e btop'
         Terminal=false
         Categories=System;Monitor;ConsoleOnly;
         Keywords=system;process;task
