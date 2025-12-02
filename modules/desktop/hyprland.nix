@@ -717,7 +717,6 @@ with lib; {
             "focusonactivate, class:^(chromium-browser)$"
             "fullscreen, class:^(steam_app_.*)$"
             "tile, class:^(starrail\.exe)$"
-            "suppressevent fullscreen, class:^(starrail\.exe)$"
 
             # Control-panel workspace utilities (must come before dev workspace wezterm rule)
             "tile, class:^(pavucontrol)$"
