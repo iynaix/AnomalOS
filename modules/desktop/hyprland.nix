@@ -563,8 +563,8 @@ with lib; {
           };
           decoration = {
             rounding = 2;
-            active_opacity = 0.90;
-            inactive_opacity = 0.80;
+            active_opacity = 0.95;
+            inactive_opacity = 0.90;
             shadow = {
               enabled = true;
               range = 8;
@@ -715,7 +715,7 @@ with lib; {
             "focusonactivate, class:^(helium)$"
             "focusonactivate, class:^(firefox)$"
             "focusonactivate, class:^(chromium-browser)$"
-            "fullscreen, class:^(steam_app_.*)$"
+            # "fullscreen, class:^(steam_app_3564740)$" # Where Winds Meet - commented out for testing
             "tile, class:^(starrail\.exe)$"
 
             # Control-panel workspace utilities (must come before dev workspace wezterm rule)
@@ -753,6 +753,7 @@ with lib; {
             "opacity 1.0 override 1.0 override 1.0 override, class:^(chrome-fanduelsportsnetwork\.com__teams_nhl-blue-jackets-Default)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(steam_app_.*)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(steam)$"
+            "opacity 1.0 override 1.0 override 1.0 override, class:^(vlc)$"
           ];
         };
       };
