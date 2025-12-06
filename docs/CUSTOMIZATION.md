@@ -232,7 +232,7 @@ To add an application to the control-panel workspace, create a desktop entry ove
 xdg.dataFile."applications/myapp.desktop".text = ''
   [Desktop Entry]
   Name=My App
-  Exec=hyprctl dispatch exec '[workspace special:control-panel; float] myapp'
+  Exec=hyprctl dispatch exec '[workspace special:control-panel; tile] myapp'
   Type=Application
   Terminal=false
 '';
@@ -327,13 +327,13 @@ network = {
   format-wifi = "{essid} ({signalStrength}%) ";
   format-ethernet = "{ipaddr}/{cidr} ";
   format-disconnected = "Disconnected ⚠";
-  on-click-right = "hyprctl dispatch exec '[workspace special:control-panel; float] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e nmtui'";
+  on-click-right = "hyprctl dispatch exec '[workspace special:control-panel; tile] ghostty nmtui'";
 };
 
 bluetooth = {
   format = " {status}";
   format-connected = " {device_alias}";
-  on-click-right = "hyprctl dispatch exec '[workspace special:control-panel; float] env WEZTERM_CONFIG_FILE=$HOME/.config/wezterm/wezterm.lua wezterm -e bluetui'";
+  on-click-right = "hyprctl dispatch exec '[workspace special:control-panel; tile] ghostty bluetui'";
 };
 ```
 

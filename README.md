@@ -46,8 +46,12 @@ This flake provides the **Rig** configuration - a complete, optimized NixOS syst
 ### Installation
 
 ```bash
-# Clone this repository
+# Clone this repository (GitHub)
 git clone https://github.com/weegs710/AnomalOS.git ~/dotfiles
+cd ~/dotfiles
+
+# Or clone from Codeberg
+git clone https://codeberg.org/weegs710/AnomalOS.git ~/dotfiles
 cd ~/dotfiles
 
 # Generate hardware configuration for your system
@@ -107,7 +111,7 @@ rig-up         # Update flake + test Rig + prompt to switch
 - Development toolchains: Node.js, Python, Rust, Nix
 - Language servers: nixd (Nix), hyprls (Hyprland)
 - Git with custom aliases and workflows
-- WezTerm GPU-accelerated terminal emulator
+- Ghostty GPU-accelerated terminal emulator
 
 ### Gaming & Media
 - Steam with Proton and hardware compatibility
@@ -220,4 +224,4 @@ This configuration is Free and Open Source Software (FOSS) provided as-is for ed
 - [NixOS Manual](https://nixos.org/manual/nixos/stable/)
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
 - [Hyprland Wiki](https://wiki.hyprland.org/)
-- [Repository Issues](https://github.com/weegs710/AnomalOS/issues)
+- [GitHub Repository](https://github.com/weegs710/AnomalOS) | [Codeberg Repository](https://codeberg.org/weegs710/AnomalOS)

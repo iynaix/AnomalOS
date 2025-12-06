@@ -228,16 +228,15 @@ programs.starship = {
 ### Terminal Configuration
 
 ```nix
-programs.wezterm = {
+programs.ghostty = {
   enable = true;
-  extraConfig = ''
-    config.font = wezterm.font("Terminess Nerd Font")
-    config.font_size = 14.0
-    config.use_fancy_tab_bar = true
-    config.enable_tab_bar = true
-  '';
+  settings = {
+    font-family = "Terminess Nerd Font";
+    font-size = 14;
+    theme = "auto";  # Automatically uses Stylix theme
+  };
 };
-stylix.targets.wezterm.enable = true;
+stylix.targets.ghostty.enable = true;
 ```
 
 ### Git Configuration

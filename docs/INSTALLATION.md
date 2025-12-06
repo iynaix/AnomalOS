@@ -37,8 +37,11 @@ git --version
 Clone this configuration to `~/dotfiles`:
 
 ```bash
-# Clone the repository
+# Clone from GitHub
 git clone https://github.com/weegs710/AnomalOS.git ~/dotfiles
+
+# Or clone from Codeberg
+git clone https://codeberg.org/weegs710/AnomalOS.git ~/dotfiles
 
 # Navigate to the directory
 cd ~/dotfiles
@@ -337,7 +340,7 @@ If you encounter issues:
 1. Check the [Troubleshooting Guide](TROUBLESHOOTING.md)
 2. Review [NixOS Manual](https://nixos.org/manual/nixos/stable/)
 3. Search [NixOS Discourse](https://discourse.nixos.org/)
-4. Open an issue on [GitHub](https://github.com/weegs710/AnomalOS/issues)
+4. Open an issue on [GitHub](https://github.com/weegs710/AnomalOS/issues) or [Codeberg](https://codeberg.org/weegs710/AnomalOS/issues)
 
 ---
 

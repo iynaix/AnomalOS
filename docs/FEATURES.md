@@ -161,7 +161,7 @@ sudo journalctl -u dnscrypt-proxy
 The system uses a named workspace scheme designed for efficient workflow management:
 
 1. **comms** (Super+1): Communication apps (Discord/Vesktop)
-2. **dev** (Super+2): Development environment (Zed, WezTerm terminals)
+2. **dev** (Super+2): Development environment (Zed, Ghostty terminals)
 3. **games** (Super+3): Gaming (Steam, game launchers, game windows)
 4. **media** (Super+4): Media playback (VLC, streaming apps)
 5. **web** (Super+5): Web browsing (Helium, Firefox, Chrome apps)
@@ -304,11 +304,10 @@ cc status       # Show system status
 
 ### Terminal & Shell
 
-**WezTerm Terminal**
-- GPU-accelerated rendering with OpenGL
+**Ghostty Terminal**
+- GPU-accelerated rendering
 - Ligature and font fallback support
 - Image protocol support for previews
-- Tab bar with custom styling via Stylix
 
 **Fish Shell**
 - Intelligent autocompletions

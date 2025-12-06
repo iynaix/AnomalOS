@@ -673,7 +673,8 @@ If issues persist:
 2. **Search NixOS Discourse**: https://discourse.nixos.org/
 3. **NixOS Wiki**: https://nixos.wiki/
 4. **GitHub Issues**: https://github.com/weegs710/AnomalOS/issues
-5. **NixOS Matrix Chat**: https://matrix.to/#/#community:nixos.org
+5. **Codeberg Issues**: https://codeberg.org/weegs710/AnomalOS/issues
+6. **NixOS Matrix Chat**: https://matrix.to/#/#community:nixos.org
 
 ### Reporting Issues
 
