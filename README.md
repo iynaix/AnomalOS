@@ -217,7 +217,9 @@ This configuration is designed to be easily forkable and customizable:
 
 ## License
 
-This configuration is Free and Open Source Software (FOSS) provided as-is for educational and personal use. Feel free to adapt it for your own systems, use it whole, or take pieces that work for you. No warranties or guarantees are provided.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This configuration is provided as-is for educational and personal use. Feel free to adapt it for your own systems, use it whole, or take pieces that work for you.
 
 ## Resources
 
