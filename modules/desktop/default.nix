@@ -16,6 +16,8 @@ with lib;
     ./flatpak.nix
     ./kdeconnect.nix
     ./autotrash.nix
+    ./brave.nix
+    ./stylix-web16.nix
   ];
 
   config = mkIf config.mySystem.features.desktop {

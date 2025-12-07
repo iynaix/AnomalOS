@@ -234,10 +234,10 @@ in
       "application/x-tar" = [ "org.gnome.FileRoller.desktop" ];
       "application/gzip" = [ "org.gnome.FileRoller.desktop" ];
 
-      # Web - Helium
-      "text/html" = [ "helium.desktop" ];
-      "x-scheme-handler/http" = [ "helium.desktop" ];
-      "x-scheme-handler/https" = [ "helium.desktop" ];
+      # Web - Brave
+      "text/html" = [ "brave-browser.desktop" ];
+      "x-scheme-handler/http" = [ "brave-browser.desktop" ];
+      "x-scheme-handler/https" = [ "brave-browser.desktop" ];
 
       # Terminal
       "application/x-terminal-emulator" = [ "com.mitchellh.ghostty.desktop" ];

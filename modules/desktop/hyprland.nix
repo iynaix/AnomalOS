@@ -513,7 +513,7 @@ with lib; {
           "$terminal" = "ghostty";
           "$fileManager" = "ghostty -e yazi";
           "$menu" = "rofi -show drun -show-icons -drun-display-format '{name}'";
-          "$webBrowser" = "helium";
+          "$webBrowser" = "brave";
           "$mainMod" = "SUPER";
           env = [
             "HYPRCURSOR_THEME,Nordzy-hyprcursors"
@@ -709,10 +709,10 @@ with lib; {
             "workspace 4, class:^(chrome-fanduelsportsnetwork\.com__teams_nhl-blue-jackets-Default)$"
 
             # Workspace: 5 (web)
-            "workspace 5, class:^(helium)$"
+            "workspace 5, class:^(brave-browser)$"
             "workspace 5, class:^(firefox)$"
             "workspace 5, class:^(chromium-browser)$"
-            "focusonactivate, class:^(helium)$"
+            "focusonactivate, class:^(brave-browser)$"
             "focusonactivate, class:^(firefox)$"
             "focusonactivate, class:^(chromium-browser)$"
             # "fullscreen, class:^(steam_app_3564740)$" # Where Winds Meet - commented out for testing
@@ -748,7 +748,7 @@ with lib; {
             # Opacity overrides
             "opacity 1.0 override 1.0 override 1.0 override, class:^(vesktop)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(com\.stremio\.stremio)$"
-            "opacity 1.0 override 1.0 override 1.0 override, class:^(helium)$"
+            "opacity 1.0 override 1.0 override 1.0 override, class:^(brave-browser)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(starrail\.exe)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(chrome-fanduelsportsnetwork\.com__teams_nhl-blue-jackets-Default)$"
             "opacity 1.0 override 1.0 override 1.0 override, class:^(steam_app_.*)$"
