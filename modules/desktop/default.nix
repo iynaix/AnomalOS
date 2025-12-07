@@ -15,6 +15,7 @@ with lib;
     ./rofi.nix
     ./flatpak.nix
     ./kdeconnect.nix
+    ./autotrash.nix
   ];
 
   config = mkIf config.mySystem.features.desktop {
