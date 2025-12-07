@@ -388,7 +388,10 @@ let
                 *)
                     # Check if it's a number
                     if [[ "$choice" =~ ^[0-9]+$ ]]; then
-                        local project_list=($(ls -1 "$PROJECTS_DIR" 2>/dev/null))
+                        local project_list=()
+                        for dir in "$PROJECTS_DIR"/*; do
+                            [[ -d "$dir" ]] && project_list+=($(basename "$dir"))
+                        done
                         local index=$((choice - 1))
                         if [[ $index -ge 0 && $index -lt ''${#project_list[@]} ]]; then
                             open_project "''${project_list[$index]}"
@@ -571,83 +574,6 @@ in
       "${cfg.projectsDirectory}/.claude/commands/primer.md".text = commandFiles."primer.md";
       "${cfg.projectsDirectory}/.claude/commands/generate.md".text = commandFiles."generate.md";
       "${cfg.projectsDirectory}/.claude/commands/execute.md".text = commandFiles."execute.md";
-
-      # Global CLAUDE.md
-      "${cfg.projectsDirectory}/CLAUDE.md".text = ''
-        # Claude Code Global Configuration
-
-        This directory serves as the global foundation for all Claude Code projects, providing enhanced optimization features and masterclass patterns.
-
-        ## Enhanced Project Structure
-
-        ```
-        ~/claude-projects/
-        ├── .claude/                    # Global Claude Code configuration
-        │   ├── settings.local.json     # Permission and MCP settings
-        │   ├── commands/              # Reusable slash commands
-        │   ├── agents/                # Specialized subagents
-        │   └── hooks/                 # Development lifecycle automation
-        ├── projects/                  # All your individual projects
-        │   └── [project-dirs]/        # Individual project directories
-        ├── templates/                 # Project templates
-        ├── shared/                    # Shared resources and patterns
-        └── CLAUDE.md                  # This global configuration file
-        ```
-
-        ## Core Development Principles
-
-        **IMPORTANT**: Follow these principles proactively throughout all development:
-
-        ### Keep It Simple and Direct
-        - **KISS (Keep It Simple, Stupid)**: Choose the simplest solution that works
-        - **YAGNI (You Aren't Gonna Need It)**: Don't implement features until they're actually needed
-        - Focus on the immediate task without over-engineering
-        - Avoid backwards compatibility unless explicitly required
-
-        ### Effective Communication Keywords
-        When thinking through complex problems, use **"ultraink"** to engage deeper reasoning.
-        Mark critical requirements as **"important"** for proper attention.
-        Act **"proactively"** on user needs and potential issues.
-
-        ### Anti-Patterns to Avoid
-        - Don't use terms like "production ready" that trigger over-engineering
-        - Avoid implementing old code patterns for backwards compatibility
-        - Don't create elaborate abstractions for simple tasks
-        - Resist the urge to refactor working code unless explicitly asked
-
-        ## Available Global Features
-
-        ### Essential Slash Commands
-        - `/primer` - Prime context for existing codebase understanding
-        - `/analyze [component]` - Deep analysis of code components
-        - `/generate [spec-file]` - Generate comprehensive Product Requirements Prompt
-        - `/execute [prp-file]` - Execute implementation based on PRP
-
-        ### Global Optimization Features
-        This setup provides enhanced Claude Code capabilities across all projects:
-
-        1. **Autonomous Operation**: Pre-approved safe commands for smooth workflow
-        2. **MCP Integration**: Ready for Serena and other MCP servers
-        3. **Context Engineering**: PRP framework for structured development
-        4. **Quality Gates**: Automated validation and testing
-
-        ## Project Workflow Integration
-
-        ### Starting New Projects
-        1. Use `cc new [project-name]` to create a new project with global optimizations
-        2. Projects automatically inherit all global features
-        3. Project-specific customizations go in individual CLAUDE.md files
-
-        ### Working with Existing Projects
-        1. Use `cc` to see interactive project menu
-        2. Use `cc [project-name]` for direct navigation
-        3. All projects inherit global optimization features
-        4. Individual projects maintain their specific configurations
-
-        ---
-
-        *This global configuration provides masterclass optimization features to all your Claude Code projects. Use `cc` to navigate and access enhanced development capabilities!*
-      '';
 
     };
 
