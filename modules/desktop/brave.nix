@@ -28,6 +28,6 @@ with lib; {
       NIXOS_OZONE_WL = "1";
     };
 
-    stylix.targets.chromium.enable = true;
+    stylix.targets.chromium.enable = false;
   };
 }
