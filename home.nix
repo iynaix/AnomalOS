@@ -66,10 +66,6 @@ in
       }
     ];
 
-    shellAliases = {
-      cbj = "tmux kill-session -t cbj 2>/dev/null; tmux new-session -d -s cbj 'NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#google-chrome -- --app=\"https://fanduelsportsnetwork.com/teams/nhl-blue-jackets\"'";
-    };
-
     interactiveShellInit = ''
       set -g fish_color_param b392f0  # base05 light purple
       set -g fish_color_autosuggestion 2f143f  # base03 medium purple
