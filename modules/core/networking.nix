@@ -1,6 +1,8 @@
-{ config, lib, ... }:
-
 {
+  config,
+  lib,
+  ...
+}: {
   networking = {
     hostName = config.mySystem.hostName;
     networkmanager.enable = true;
@@ -10,8 +12,8 @@
       enable = true;
       allowPing = false;
       # Basic ports - specific applications can add their own
-      allowedTCPPorts = [ ];
-      allowedUDPPorts = [ ];
+      allowedTCPPorts = [];
+      allowedUDPPorts = [];
     };
   };
 

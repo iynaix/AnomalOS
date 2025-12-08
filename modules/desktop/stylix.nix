@@ -11,8 +11,8 @@ with lib; {
       enable = true;
       enableReleaseChecks = false;
       # base16Scheme = ./anomal-16.yaml;
-      # base16Scheme = "${pkgs.base16-schemes}/share/themes/outrun-dark.yaml";
-      base16Scheme = ./oxocarbon-dark.yaml;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/outrun-dark.yaml";
+      # base16Scheme = ./oxocarbon-dark.yaml;
       polarity = "dark";
       targets = {
         gtk.enable = true;

@@ -1,13 +1,13 @@
-{ config, lib, ... }:
-
-with lib;
-
-let
-  dnsDir = "/var/lib/dnscrypt-proxy";
-in
 {
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  dnsDir = "/var/lib/dnscrypt-proxy";
+in {
   config = mkIf config.mySystem.security.dnscrypt {
-    networking.nameservers = [ "127.0.0.1" "::1" ];
+    networking.nameservers = ["127.0.0.1" "::1"];
 
     services = {
       resolved.enable = false;
@@ -16,10 +16,10 @@ in
       dnscrypt-proxy = {
         enable = true;
         settings = {
-          listen_addresses = [ "127.0.0.1:53" "[::1]:53" ];
+          listen_addresses = ["127.0.0.1:53" "[::1]:53"];
 
           # Quad9 for malware filtering, Cloudflare for speed/load balancing
-          server_names = [ "cloudflare" "quad9-dnscrypt-ip4-filter-pri" ];
+          server_names = ["cloudflare" "quad9-dnscrypt-ip4-filter-pri"];
 
           doh_servers = true;
           require_dnssec = true;

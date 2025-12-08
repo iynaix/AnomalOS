@@ -1,8 +1,9 @@
-{ config, lib, ... }:
-
-with lib;
-
 {
+  config,
+  lib,
+  ...
+}:
+with lib; {
   imports = [
     ./yubikey.nix
     ./firewall.nix
@@ -21,7 +22,7 @@ with lib;
     services = {
       openssh = {
         enable = true;
-        ports = [ 2222 ];
+        ports = [2222];
         settings = {
           PasswordAuthentication = false;
           KbdInteractiveAuthentication = false;
@@ -30,7 +31,7 @@ with lib;
           MaxAuthTries = 3;
           ClientAliveInterval = 300;
           ClientAliveCountMax = 2;
-          AllowUsers = [ config.mySystem.user.name ];
+          AllowUsers = [config.mySystem.user.name];
           X11Forwarding = false;
           PrintMotd = false;
           PermitEmptyPasswords = false;

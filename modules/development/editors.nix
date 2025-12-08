@@ -4,8 +4,7 @@
   pkgs,
   ...
 }:
-with lib;
-{
+with lib; {
   config = mkIf config.mySystem.features.development {
     # Development programs
     programs = {

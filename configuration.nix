@@ -1,6 +1,8 @@
-{ config, inputs, ... }:
-
 {
+  config,
+  inputs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./modules/options.nix
@@ -48,7 +50,7 @@
 
   home-manager = {
     backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
     users.${config.mySystem.user.name} = import ./home.nix;
   };
 

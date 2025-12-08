@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   username = config.mySystem.user.name;
   homeDirectory = "/home/${username}";
 
@@ -20,68 +17,66 @@ let
 
   # Shared helper script for all auto-login operations
   autologinScript = pkgs.writeShellScript "yubikey-autologin-helper" ''
-    #!/usr/bin/env bash
-    set -euo pipefail
+        #!/usr/bin/env bash
+        set -euo pipefail
 
-    MODE="''${1:-}"
+        MODE="''${1:-}"
 
-    log() { echo "$(date): $*" >> "${logFile}"; }
+        log() { echo "$(date): $*" >> "${logFile}"; }
 
-    validate_yubikey() {
-      [[ ! -x "${ykmanPath}" ]] && { log "ykman not available"; return 1; }
-      [[ "$MODE" == "init" ]] && sleep 2  # USB settle time at boot
+        validate_yubikey() {
+          [[ ! -x "${ykmanPath}" ]] && { log "ykman not available"; return 1; }
+          [[ "$MODE" == "init" ]] && sleep 2  # USB settle time at boot
 
-      local info=$("${ykmanPath}" info 2>/dev/null || echo "")
-      [[ ! -f "${u2fKeys}" ]] && { log "No U2F keys file found"; return 1; }
-      [[ -s "${u2fKeys}" && -n "$info" ]] && [[ "$info" == *"Security Key"* || "$info" == *"YubiKey"* ]] || { log "YubiKey validation failed"; return 1; }
+          local info=$("${ykmanPath}" info 2>/dev/null || echo "")
+          [[ ! -f "${u2fKeys}" ]] && { log "No U2F keys file found"; return 1; }
+          [[ -s "${u2fKeys}" && -n "$info" ]] && [[ "$info" == *"Security Key"* || "$info" == *"YubiKey"* ]] || { log "YubiKey validation failed"; return 1; }
 
-      log "Validated YubiKey: $(echo "$info" | head -1)"
-      return 0
-    }
+          log "Validated YubiKey: $(echo "$info" | head -1)"
+          return 0
+        }
 
-    enable_autologin() {
-      log "Enabling auto-login"
-      mkdir -p "${sddmConfDir}"
-      cat > "${autologinConf}" <<'EOF'
-[Autologin]
-User=${username}
-Session=hyprland
-Relogin=true
-EOF
-      chmod 644 "${autologinConf}"
-    }
+        enable_autologin() {
+          log "Enabling auto-login"
+          mkdir -p "${sddmConfDir}"
+          cat > "${autologinConf}" <<'EOF'
+    [Autologin]
+    User=${username}
+    Session=hyprland
+    Relogin=true
+    EOF
+          chmod 644 "${autologinConf}"
+        }
 
-    disable_autologin() {
-      if [[ -f "${autologinConf}" ]]; then
-        rm -f "${autologinConf}"
-        log "Auto-login disabled"
-      else
-        log "Auto-login was already disabled"
-      fi
-    }
+        disable_autologin() {
+          if [[ -f "${autologinConf}" ]]; then
+            rm -f "${autologinConf}"
+            log "Auto-login disabled"
+          else
+            log "Auto-login was already disabled"
+          fi
+        }
 
-    case "$MODE" in
-      enable)
-        validate_yubikey && enable_autologin || log "Unregistered/invalid YubiKey, auto-login not enabled"
-        ;;
-      disable)
-        disable_autologin
-        ;;
-      init)
-        touch "${logFile}" && chmod 644 "${logFile}"
-        log "Auto-login service starting"
-        mkdir -p "${sddmConfDir}"
-        validate_yubikey && enable_autologin || { log "No registered YubiKey at boot"; disable_autologin; }
-        ;;
-      *)
-        echo "Usage: $0 {enable|disable|init}" >&2
-        exit 1
-        ;;
-    esac
+        case "$MODE" in
+          enable)
+            validate_yubikey && enable_autologin || log "Unregistered/invalid YubiKey, auto-login not enabled"
+            ;;
+          disable)
+            disable_autologin
+            ;;
+          init)
+            touch "${logFile}" && chmod 644 "${logFile}"
+            log "Auto-login service starting"
+            mkdir -p "${sddmConfDir}"
+            validate_yubikey && enable_autologin || { log "No registered YubiKey at boot"; disable_autologin; }
+            ;;
+          *)
+            echo "Usage: $0 {enable|disable|init}" >&2
+            exit 1
+            ;;
+        esac
   '';
-in
-
-{
+in {
   config = mkIf config.mySystem.features.yubikey {
     security.pam.u2f = {
       enable = true;
@@ -123,7 +118,7 @@ in
       pam_u2f
     ];
 
-    users.users.${username}.extraGroups = [ "plugdev" ];
+    users.users.${username}.extraGroups = ["plugdev"];
 
     systemd.services = {
       yubikey-autologin-enable = {
@@ -146,8 +141,8 @@ in
 
       yubikey-autologin-init = {
         description = "Initialize auto-login based on registered YubiKey presence at boot";
-        wantedBy = [ "multi-user.target" ];
-        before = [ "display-manager.service" ];
+        wantedBy = ["multi-user.target"];
+        before = ["display-manager.service"];
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${autologinScript} init";

@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.programs.claude-code-enhanced;
 
   # Claude Code global configuration files
@@ -530,9 +527,7 @@ let
                 ;;
         esac
   '';
-
-in
-{
+in {
   options.programs.claude-code-enhanced = {
     enable = mkEnableOption "Claude Code enhanced development environment";
 
@@ -567,18 +562,17 @@ in
       # Global configuration
       "${cfg.projectsDirectory}/.claude/settings.local.json".text =
         builtins.toJSON
-          claudeConfigFiles."settings.local.json";
+        claudeConfigFiles."settings.local.json";
 
       # Slash commands
       "${cfg.projectsDirectory}/.claude/commands/analyze.md".text = commandFiles."analyze.md";
       "${cfg.projectsDirectory}/.claude/commands/primer.md".text = commandFiles."primer.md";
       "${cfg.projectsDirectory}/.claude/commands/generate.md".text = commandFiles."generate.md";
       "${cfg.projectsDirectory}/.claude/commands/execute.md".text = commandFiles."execute.md";
-
     };
 
     # Safely create project directories without clobbering existing content
-    home.activation.createClaudeDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    home.activation.createClaudeDirectories = lib.hm.dag.entryAfter ["writeBoundary"] ''
       # Create projects directory if it doesn't exist (never clobber)
       if [[ ! -d "${cfg.projectsDirectory}/projects" ]]; then
         $DRY_RUN_CMD mkdir -p "${cfg.projectsDirectory}/projects"
@@ -603,8 +597,7 @@ in
     home.file."bin/claude-launcher".executable = true;
 
     # Install dependencies (claude-code already installed globally)
-    home.packages =
-      with pkgs;
+    home.packages = with pkgs;
       [
         git
         gh

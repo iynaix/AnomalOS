@@ -1,8 +1,9 @@
-{ config, lib, ... }:
-
-with lib;
-
 {
+  config,
+  lib,
+  ...
+}:
+with lib; {
   config = mkIf config.mySystem.features.security {
     services.suricata = {
       enable = true;
@@ -28,18 +29,18 @@ with lib;
               filetype = "regular";
               filename = "/var/log/suricata/eve.json";
               types = [
-                { alert = { }; }
-                { http = { }; }
-                { dns = { }; }
-                { tls = { }; }
-                { ssh = { }; }
-                { stats = { }; }
+                {alert = {};}
+                {http = {};}
+                {dns = {};}
+                {tls = {};}
+                {ssh = {};}
+                {stats = {};}
               ];
             };
           }
         ];
         default-rule-path = "/var/lib/suricata/rules";
-        rule-files = [ "suricata.rules" ];
+        rule-files = ["suricata.rules"];
         app-layer.protocols.modbus.enabled = "no";
       };
     };

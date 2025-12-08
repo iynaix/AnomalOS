@@ -4,8 +4,7 @@
   inputs,
   ...
 }:
-with lib;
-{
+with lib; {
   config = mkIf config.mySystem.features.gaming {
     # Anime Game Launchers (Genshin, Honkai, Wuthering Waves, ZZZ)
     programs = {

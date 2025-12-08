@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   ns = pkgs.writeShellApplication {
     name = "ns";
     runtimeInputs = with pkgs; [
@@ -17,9 +14,7 @@ let
     checkPhase = "";
     text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
   };
-in
-
-{
+in {
   config = mkIf config.mySystem.features.development {
     # Development languages and tools
     environment.systemPackages = with pkgs; [

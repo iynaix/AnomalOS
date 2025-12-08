@@ -4,8 +4,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   nix = {
     gc = {
       automatic = true;
@@ -17,7 +16,7 @@
       auto-optimise-store = true;
       warn-dirty = false;
       download-buffer-size = 268435456; # 256MB
-      trusted-users = [ config.mySystem.user.name ];
+      trusted-users = [config.mySystem.user.name];
       experimental-features = [
         "nix-command"
         "flakes"

@@ -5,8 +5,7 @@
   inputs,
   ...
 }:
-with lib;
-{
+with lib; {
   config = mkIf config.mySystem.features.flatpak {
     services.flatpak = {
       enable = true;
@@ -58,7 +57,7 @@ with lib;
                 "xdg-videos"
               ];
 
-              devices = [ "dri" ];
+              devices = ["dri"];
             };
 
             Environment = {

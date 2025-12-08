@@ -1,10 +1,6 @@
 # System option definitions for the mySystem namespace
-
-{ lib, ... }:
-
-with lib;
-
-{
+{lib, ...}:
+with lib; {
   options.mySystem = {
     user = {
       name = mkOption {

@@ -7,10 +7,7 @@
 #   - users.nix: User account configuration
 #
 # These modules are always imported regardless of feature flags.
-
-{ lib, ... }:
-
-{
+{lib, ...}: {
   imports = [
     ./boot.nix
     ./networking.nix

@@ -7,7 +7,7 @@
 with lib; {
   config = mkIf config.mySystem.features.desktop {
     home-manager.users.${config.mySystem.user.name} = {
-      home.packages = [ pkgs.autotrash ];
+      home.packages = [pkgs.autotrash];
 
       systemd.user.services.autotrash = {
         Unit = {
@@ -28,7 +28,7 @@ with lib; {
           Persistent = true;
         };
         Install = {
-          WantedBy = [ "timers.target" ];
+          WantedBy = ["timers.target"];
         };
       };
     };

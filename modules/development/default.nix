@@ -1,8 +1,9 @@
-{ config, lib, ... }:
-
-with lib;
-
 {
+  config,
+  lib,
+  ...
+}:
+with lib; {
   imports = [
     ./claude-code.nix
     ./editors.nix

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   boot = {
     initrd.services.lvm.enable = true;
     plymouth.enable = true;

@@ -4,17 +4,18 @@
   pkgs,
   ...
 }:
-with lib;
-{
+with lib; {
   config = mkIf config.mySystem.features.kdeconnect {
     programs.kdeconnect.enable = true;
 
     # Ports 1714-1764 required for device discovery and file transfers
     networking.firewall = rec {
-      allowedTCPPortRanges = [{
-        from = 1714;
-        to = 1764;
-      }];
+      allowedTCPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        }
+      ];
       allowedUDPPortRanges = allowedTCPPortRanges;
     };
 
