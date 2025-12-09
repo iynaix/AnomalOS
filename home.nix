@@ -20,6 +20,37 @@ in {
   programs.fish = {
     enable = true;
 
+    functions = {
+      kc-send = {
+        description = "Send files to paired KDE Connect device";
+        body = ''
+          set device_id (kdeconnect-cli --list-available | grep -oP '(?<=: )[a-f0-9]+(?= \(paired)')
+
+          if test -z "$device_id"
+              echo "No paired device found"
+              return 1
+          end
+
+          for item in $argv
+              if test -f $item
+                  echo "Sending: $item"
+                  kdeconnect-cli -d $device_id --share $item
+              else if test -d $item
+                  echo "Sending all files from directory: $item"
+                  for file in $item/*
+                      if test -f $file
+                          echo "  Sending: $file"
+                          kdeconnect-cli -d $device_id --share $file
+                      end
+                  end
+              else
+                  echo "Skipping: $item (not found or not accessible)"
+              end
+          end
+        '';
+      };
+    };
+
     plugins = [
       # fzf integration - fuzzy finder for history, files, git
       {
