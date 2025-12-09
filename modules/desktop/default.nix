@@ -276,9 +276,12 @@ with lib; {
         settings = {
           font-family = "Terminess Nerd Font";
           font-size = 13;
-          copy-on-select = true;
+          copy-on-select = "clipboard";
           window-show-tab-bar = "never";
-          keybind = "shift+enter=text:\n";
+          keybind = [
+            "shift+enter=text:\\n"
+            "ctrl+v=paste_from_clipboard"
+          ];
         };
       };
       stylix.targets.ghostty.enable = true;
