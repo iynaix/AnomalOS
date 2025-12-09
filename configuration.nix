@@ -14,6 +14,8 @@
     inputs.home-manager.nixosModules.default
   ];
 
+  nixpkgs.config.allowBroken = true;
+
   mySystem = {
     hostName = "HX99G";
     user = {
