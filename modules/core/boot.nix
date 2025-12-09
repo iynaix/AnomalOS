@@ -15,6 +15,7 @@
     initrd.verbose = false;
     supportedFilesystems.ntfs = true;
     supportedFilesystems.exfat = true;
+    supportedFilesystems = ["zfs"];
     loader = {
       systemd-boot = {
         enable = true;

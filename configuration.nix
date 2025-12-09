@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
+    ./hardware-configuration-zfs.nix
     ./modules/options.nix
     ./modules/core
     ./modules/security
