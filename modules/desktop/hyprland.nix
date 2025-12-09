@@ -715,7 +715,7 @@ with lib; {
             "focusonactivate, class:^(brave-browser)$"
             "focusonactivate, class:^(firefox)$"
             "focusonactivate, class:^(chromium-browser)$"
-            # "fullscreen, class:^(steam_app_3564740)$" # Where Winds Meet - commented out for testing
+            "tile, class:^(steam_app_3564740)$" # Where Winds Meet - force tiled
             "tile, class:^(starrail\.exe)$"
 
             # Control-panel workspace utilities (must come before dev workspace wezterm rule)
