@@ -7,6 +7,128 @@
 with lib; {
   config = mkIf config.mySystem.features.desktop {
     home-manager.users.${config.mySystem.user.name} = {
+      home.file.".config/rofi/config.rasi".text = ''
+        configuration {
+          theme-search-dir: "/home/${config.mySystem.user.name}/.config/rofi/themes";
+        }
+
+        @theme "darkblue-bottom"
+      '';
+
+      home.file.".config/rofi/themes/darkblue-bottom.rasi".text = ''
+        /**
+         * Outrun Dark theme for rofi
+         * Bottom-center positioning with stylix colors
+         */
+        * {
+            font:                        "Terminess Nerd Font 18";
+            background-color:            #${config.lib.stylix.colors.base00};
+            foreground:                  #${config.lib.stylix.colors.base05};
+            selected-normal-foreground:  #${config.lib.stylix.colors.base00};
+            selected-normal-background:  #${config.lib.stylix.colors.base0D};
+            selected-urgent-foreground:  #${config.lib.stylix.colors.base00};
+            selected-urgent-background:  #${config.lib.stylix.colors.base08};
+            selected-active-foreground:  #${config.lib.stylix.colors.base00};
+            selected-active-background:  #${config.lib.stylix.colors.base0B};
+            normal-foreground:           #${config.lib.stylix.colors.base05};
+            normal-background:           transparent;
+            urgent-foreground:           #${config.lib.stylix.colors.base08};
+            urgent-background:           transparent;
+            active-foreground:           #${config.lib.stylix.colors.base0D};
+            active-background:           transparent;
+            alternate-normal-foreground: #${config.lib.stylix.colors.base05};
+            alternate-normal-background: transparent;
+            border-color:                #${config.lib.stylix.colors.base0C};
+            separatorcolor:              #${config.lib.stylix.colors.base03};
+        }
+
+        window {
+            location:         south;
+            anchor:           south;
+            width:            25%;
+            background-color: #${config.lib.stylix.colors.base00};
+            border:           2;
+            border-color:     #${config.lib.stylix.colors.base0D};
+            padding:          10;
+        }
+
+        mainbox {
+            border:  0;
+            padding: 0;
+        }
+
+        message {
+            border:       2px 0px 0px;
+            border-color: @separatorcolor;
+            padding:      5px;
+        }
+
+        textbox {
+            text-color: @foreground;
+        }
+
+        listview {
+            fixed-height: 0;
+            border:       2px 0px 0px;
+            border-color: @separatorcolor;
+            spacing:      2px;
+            scrollbar:    false;
+            padding:      5px 0px 0px;
+        }
+
+        element {
+            border:  0;
+            padding: 5px;
+        }
+
+        element-icon {
+            size: 1.5em;
+        }
+
+        element-text {
+            background-color: inherit;
+            text-color:       inherit;
+        }
+
+        element.normal.normal {
+            background-color: @normal-background;
+            text-color:       @normal-foreground;
+        }
+
+        element.selected.normal {
+            background-color: @selected-normal-background;
+            text-color:       @selected-normal-foreground;
+        }
+
+        element.alternate.normal {
+            background-color: @alternate-normal-background;
+            text-color:       @alternate-normal-foreground;
+        }
+
+        inputbar {
+            spacing:    0;
+            text-color: @foreground;
+            padding:    5px;
+            background-color: #${config.lib.stylix.colors.base01};
+            border:     0px 0px 2px 0px;
+            border-color: #${config.lib.stylix.colors.base0D};
+        }
+
+        entry {
+            spacing:    0;
+            text-color: @foreground;
+        }
+
+        prompt {
+            spacing:    0;
+            text-color: #${config.lib.stylix.colors.base0D};
+        }
+
+        inputbar {
+            children: [ prompt, entry ];
+        }
+      '';
+
       home.file.".config/rofi/themes/anomal-os.rasi".text = ''
         /**
          * ROFI Color Theme
@@ -26,9 +148,11 @@ with lib; {
         }
 
         window {
-        	fullscreen:       true;
+        	location:         south;
+        	anchor:           south;
+        	width:            60%;
         	background-color: #0a0019cc;
-        	padding:          4em;
+        	padding:          2em;
         	children:         [ wrap, listview-split];
         	spacing:          1em;
         }
