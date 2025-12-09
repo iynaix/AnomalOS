@@ -35,6 +35,7 @@
       flatpak = true;
       media = true;
       kdeconnect = true;
+      vm = true;
     };
 
     hardware = {

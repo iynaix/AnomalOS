@@ -61,6 +61,7 @@ with lib; {
     };
 
     programs = {
+      partition-manager.enable = true;
       udevil.enable = true;
     };
 
