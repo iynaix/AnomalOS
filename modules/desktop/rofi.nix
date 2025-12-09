@@ -43,13 +43,14 @@ with lib; {
         }
 
         window {
-            location:         south;
-            anchor:           south;
-            width:            25%;
+            location: south;
+            anchor: south;
+            width: 25%;
             background-color: #${config.lib.stylix.colors.base00};
-            border:           2;
-            border-color:     #${config.lib.stylix.colors.base0D};
-            padding:          10;
+            border: 1;
+            border-color: #${config.lib.stylix.colors.base0D};
+            border-radius: 15px;
+            padding: 10;
         }
 
         mainbox {
@@ -68,6 +69,7 @@ with lib; {
         }
 
         listview {
+            lines:        7;
             fixed-height: 0;
             border:       2px 0px 0px;
             border-color: @separatorcolor;
@@ -77,8 +79,9 @@ with lib; {
         }
 
         element {
-            border:  0;
+            border: 0;
             padding: 5px;
+            border-radius: 8px;
         }
 
         element-icon {
@@ -106,12 +109,13 @@ with lib; {
         }
 
         inputbar {
-            spacing:    0;
+            spacing: 0;
             text-color: @foreground;
-            padding:    5px;
+            padding: 8px;
             background-color: #${config.lib.stylix.colors.base01};
-            border:     0px 0px 2px 0px;
+            border: 0px 0px 1px 0px;
             border-color: #${config.lib.stylix.colors.base0D};
+            border-radius: 10px;
         }
 
         entry {
