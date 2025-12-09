@@ -11,6 +11,7 @@
     firewall = {
       enable = true;
       allowPing = false;
+      trustedInterfaces = ["virbr0"];
       # Basic ports - specific applications can add their own
       allowedTCPPorts = [];
       allowedUDPPorts = [];
