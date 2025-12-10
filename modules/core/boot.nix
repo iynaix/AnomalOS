@@ -7,6 +7,7 @@
   boot = {
     # initrd.services.lvm.enable = true;
     # initrd.supportedFilesystems = [ "zfs" ];
+    initrd.systemd.enable = true;
     plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_6_17;
     kernelParams = [
