@@ -312,16 +312,16 @@ with lib; {
             pkgs.fetchFromGitHub {
               owner = "yazi-rs";
               repo = "plugins";
-              rev = "main";
-              sha256 = "sha256-7vsqHvdNimH/YVWegfAo7DfJ+InDr3a1aNU0f+gjcdw=";
+              rev = "19dc890e33b8922eb1a3a165e685436ec4ac0a59";
+              sha256 = "sha256-Hm17hQ7G6tEDPUPOFN9jQ01C5Ll2BDqyFERUHMJUNRo=";
             }
             + "/mount.yazi";
           git =
             pkgs.fetchFromGitHub {
               owner = "yazi-rs";
               repo = "plugins";
-              rev = "main";
-              sha256 = "sha256-7vsqHvdNimH/YVWegfAo7DfJ+InDr3a1aNU0f+gjcdw=";
+              rev = "19dc890e33b8922eb1a3a165e685436ec4ac0a59";
+              sha256 = "sha256-Hm17hQ7G6tEDPUPOFN9jQ01C5Ll2BDqyFERUHMJUNRo=";
             }
             + "/git.yazi";
         };
