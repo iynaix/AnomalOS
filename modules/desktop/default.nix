@@ -313,7 +313,7 @@ with lib; {
               owner = "yazi-rs";
               repo = "plugins";
               rev = "19dc890e33b8922eb1a3a165e685436ec4ac0a59";
-              sha256 = "sha256-Hm17hQ7G6tEDPUPOFN9jQ01C5Ll2BDqyFERUHMJUNRo=";
+              sha256 = "sha256-Hml7n07G6tEOPUPOFN9jf01C5LtZRO8pfERVHKHJQRo=";
             }
             + "/mount.yazi";
           git =
@@ -321,7 +321,7 @@ with lib; {
               owner = "yazi-rs";
               repo = "plugins";
               rev = "19dc890e33b8922eb1a3a165e685436ec4ac0a59";
-              sha256 = "sha256-Hm17hQ7G6tEDPUPOFN9jQ01C5Ll2BDqyFERUHMJUNRo=";
+              sha256 = "sha256-Hml7n07G6tEOPUPOFN9jf01C5LtZRO8pfERVHKHJQRo=";
             }
             + "/git.yazi";
         };
