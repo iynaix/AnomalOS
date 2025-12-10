@@ -22,10 +22,6 @@
 
   boot.zfs.devNodes = "/dev/disk/by-partuuid";
 
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r zroot/root@blank
-  '';
-
   fileSystems."/" = {
     device = "zroot/root";
     fsType = "zfs";
