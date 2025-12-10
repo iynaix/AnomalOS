@@ -20,6 +20,8 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
+  boot.zfs.devNodes = "/dev/disk/by-partuuid";
+
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     zfs rollback -r zroot/root@blank
   '';
