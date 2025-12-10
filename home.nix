@@ -13,7 +13,7 @@ in {
     ./modules/claude-code-enhanced
   ];
 
-  stylix.enableReleaseChecks = false;
+  # stylix.enableReleaseChecks = false; # TESTING: disabled with desktop features
 
   programs.claude-code-enhanced.enable = true;
 
